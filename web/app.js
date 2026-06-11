@@ -62,32 +62,32 @@ const NEWS_ITEMS = [
     tagEn: "Schedule",
     level: "live",
     time: "Jun 11",
-    zh: "世界杯开幕：墨西哥 vs 南非，随后韩国 vs 捷克。",
-    en: "World Cup opens: Mexico vs South Africa, then South Korea vs Czech Republic.",
+    zh: "开幕日：墨西哥 vs 南非；韩国 vs 捷克。",
+    en: "Opening day: Mexico vs South Africa; South Korea vs Czech Republic.",
   },
   {
     tagZh: "冷门",
     tagEn: "Upset",
     level: "watch",
     time: "Jun 11",
-    zh: "墨西哥重压主场，南非被部分市场分析视为价值冷门。",
-    en: "Mexico carry home pressure; some market analysis flags South Africa as upset value.",
+    zh: "冷门观察：南非有低比分拖住墨西哥的窗口。",
+    en: "Upset watch: South Africa have a low-score path against Mexico.",
   },
   {
     tagZh: "伤情",
     tagEn: "Injury",
     level: "alert",
     time: "Jun 11",
-    zh: "澳大利亚前锋 Mo Toure 缺席训练，对阵土耳其前锋线存疑。",
-    en: "Australia striker Mo Toure missed training; forward depth in question before Turkey.",
+    zh: "伤情：澳大利亚前锋 Mo Toure 缺席训练。",
+    en: "Injury: Australia striker Mo Toure missed training.",
   },
   {
     tagZh: "模型",
     tagEn: "Model",
     level: "model",
     time: "Now",
-    zh: "当前冠军路径：西班牙；预计决赛：西班牙 vs 阿根廷。",
-    en: "Current champion path: Spain; projected final: Spain vs Argentina.",
+    zh: "模型：冠军路径西班牙，决赛对阿根廷。",
+    en: "Model: Spain title path, final vs Argentina.",
   },
 ];
 
@@ -118,6 +118,11 @@ const I18N = {
   localOnly: { zh: "本地模式", en: "Local mode" },
   signedIn: { zh: "已登录", en: "Signed in" },
   noRank: { zh: "暂无排行榜数据", en: "No leaderboard yet" },
+  liveStatus: { zh: "赛事状态", en: "Match Status" },
+  dataSource: { zh: "数据源", en: "Data Source" },
+  nextRefresh: { zh: "下次刷新", en: "Next Refresh" },
+  modelRefreshOnly: { zh: "模型定时刷新，未接入实时比分", en: "Model refresh only; live scores not connected" },
+  liveScoresPending: { zh: "等待实时比分 API", en: "Waiting for live-score API" },
   locked: { zh: "已锁定", en: "Locked" },
   unlocked: { zh: "可修改", en: "Open" },
   synced: { zh: "云端已同步", en: "Synced" },
@@ -347,6 +352,12 @@ function renderUpdateStatus(status) {
   if (!node || !status) return;
   const mins = status.interval_seconds ? Math.round(status.interval_seconds / 60) : "-";
   node.textContent = `${currentData?.model_version || "Model"} · ${status.mode} · ${mins}m`;
+  const matchStatus = document.getElementById("matchStatus");
+  const dataSource = document.getElementById("dataSource");
+  const nextRefresh = document.getElementById("nextRefresh");
+  if (matchStatus) matchStatus.textContent = status.mode || "-";
+  if (dataSource) dataSource.textContent = text("modelRefreshOnly");
+  if (nextRefresh) nextRefresh.textContent = status.interval_seconds ? `${mins} min` : "-";
 }
 
 function renderTicker(data) {
