@@ -17,8 +17,9 @@ The server reads `PORT` from the environment, so it works on Render/Railway-styl
 
 - `GET /web/index.html`: dashboard
 - `GET /api/tournament`: latest model output
+- `GET /api/live`: live match scores/status from the configured provider
 - `GET /api/leaderboard`: user leaderboard
-- `GET /api/update-status`: updater status
+- `GET /api/update-status`: updater status plus live-data connection status
 - `POST /api/users`: create or reuse nickname
 - `POST /api/picks`: save user pick
 - `POST /api/results`: admin-only result finalization
@@ -31,7 +32,7 @@ The MVP scheduler is built in:
 - Within 24 hours of a fixture: every 1 hour
 - Matchday/full model update: every 5 minutes
 
-The current data adapter reruns the local model and updates JSON files. A paid live-score/news/odds API can be connected later without changing the frontend contract.
+The model adapter reruns the local model and updates JSON files. Live scores are read through `/api/live` and cached server-side.
 
 ## Required production settings
 
@@ -40,6 +41,10 @@ Set these environment variables in Render/Railway:
 - `ADMIN_TOKEN`: long random secret used to finalize match results.
 - `ALLOWED_ORIGIN`: your public site URL, for example `https://your-app.onrender.com`.
 - `DB_PATH`: SQLite path. Free Render deployment can use `data/worldcup.db`; this is not guaranteed to survive restarts.
+- `LIVE_DATA_PROVIDER`: currently `football-data`.
+- `FOOTBALL_DATA_TOKEN`: football-data.org API token. Keep this secret in Render; do not commit it.
+- `FOOTBALL_DATA_COMPETITION`: defaults to `WC` for FIFA World Cup.
+- `LIVE_CACHE_SECONDS`: live API cache window, defaults to `60`.
 
 If no persistent disk is attached, users, picks, and results can be lost after redeploys or instance restarts. This is fine for a free preview; use Render Persistent Disk or Postgres/Supabase for a serious leaderboard.
 
@@ -49,3 +54,9 @@ If no persistent disk is attached, users, picks, and results can be lost after r
 - User picks require `user_id + token`, so a user cannot edit another user's picks just by guessing an id.
 - Picks are locked at each match's `lock_at`. Current fixture data only has dates, so the MVP locks at `YYYY-MM-DDT00:00:00Z`; replace this with official kickoff timestamps when connected.
 - Basic in-memory rate limits protect nickname creation, picks, results, and general GET traffic.
+
+## Live match data
+
+The live-score adapter currently supports football-data.org v4. It calls `/v4/matches` with the `WC` competition code, today's date range, and the `X-Auth-Token` header. It also requests unfolded goals and bookings when the provider plan allows them.
+
+Without `FOOTBALL_DATA_TOKEN`, the site still runs and shows model updates, but the live-match panel will clearly say that live scores are not connected.

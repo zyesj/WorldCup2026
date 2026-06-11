@@ -276,6 +276,52 @@ h2 {
   font-size: 13px;
 }
 
+.liveMatches {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.liveCard,
+.liveEmpty {
+  min-width: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+}
+
+.liveCard.in_play,
+.liveCard.paused,
+.liveCard.extra_time,
+.liveCard.penalty_shootout {
+  border-color: rgba(121, 212, 138, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(121, 212, 138, 0.12);
+}
+
+.liveScore {
+  margin: 10px 0 4px;
+  color: var(--green);
+  font-size: 32px;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.liveEmpty {
+  display: grid;
+  gap: 6px;
+}
+
+.liveEmpty strong {
+  color: var(--yellow);
+}
+
+.liveEmpty span {
+  color: var(--muted);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
 .newsBadge {
   display: inline-flex;
   align-items: center;
@@ -417,6 +463,39 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 12px;
+}
+
+.liveInline {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(120, 168, 255, 0.1);
+  border: 1px solid rgba(120, 168, 255, 0.22);
+}
+
+.liveInline span {
+  color: #091114;
+  background: var(--blue);
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.liveInline strong {
+  color: var(--blue);
+  font-size: 18px;
+}
+
+.liveInline em {
+  color: var(--muted);
+  font-style: normal;
+  font-size: 12px;
+  text-align: right;
 }
 
 .meta {
@@ -620,6 +699,7 @@ h2 {
   .gridTwo,
   .groups,
   .matchList,
+  .liveMatches,
   .statusStrip {
     grid-template-columns: 1fr;
   }

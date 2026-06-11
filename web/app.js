@@ -1,6 +1,7 @@
 const pct = (value) => `${(value * 100).toFixed(1)}%`;
 const one = (value) => value.toFixed(1);
 let currentData = null;
+let currentLive = null;
 let languageMode = localStorage.getItem("languageMode") || "both";
 let userPicks = JSON.parse(localStorage.getItem("userPicks") || "{}");
 let currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
@@ -123,7 +124,12 @@ const I18N = {
   liveStatus: { zh: "赛事状态", en: "Match Status" },
   dataSource: { zh: "数据源", en: "Data Source" },
   nextRefresh: { zh: "下次刷新", en: "Next Refresh" },
-  modelRefreshOnly: { zh: "模型定时刷新，未接入实时比分", en: "Model refresh only; live scores not connected" },
+  liveMatchData: { zh: "实时赛况", en: "Live Match Data" },
+  liveConnected: { zh: "实时比分已连接", en: "Live scores connected" },
+  liveNotConnected: { zh: "实时比分未连接", en: "Live scores not connected" },
+  liveNoMatches: { zh: "今天暂无实时比赛数据", en: "No live match data for today" },
+  liveNeedsToken: { zh: "需要在 Render 设置 FOOTBALL_DATA_TOKEN", en: "Set FOOTBALL_DATA_TOKEN on Render" },
+  modelRefreshOnly: { zh: "模型定时刷新", en: "Model refresh" },
   liveScoresPending: { zh: "等待实时比分 API", en: "Waiting for live-score API" },
   locked: { zh: "已锁定", en: "Locked" },
   unlocked: { zh: "可修改", en: "Open" },
@@ -297,6 +303,17 @@ async function loadUpdateStatus() {
   }
 }
 
+async function loadLiveData() {
+  try {
+    const res = await fetch("/api/live", { cache: "no-store" });
+    if (!res.ok) throw new Error("live data unavailable");
+    return res.json();
+  } catch (error) {
+    console.warn("Live data unavailable", error);
+    return null;
+  }
+}
+
 async function savePickRemote(matchId, pick) {
   if (!currentUser) {
     setSyncStatus("localSaved");
@@ -364,8 +381,64 @@ function renderUpdateStatus(status) {
   const dataSource = document.getElementById("dataSource");
   const nextRefresh = document.getElementById("nextRefresh");
   if (matchStatus) matchStatus.textContent = status.mode || "-";
-  if (dataSource) dataSource.textContent = text("modelRefreshOnly");
+  if (dataSource) {
+    const liveText = status.live?.connected ? text("liveConnected") : text("liveNotConnected");
+    dataSource.textContent = `${text("modelRefreshOnly")} · ${liveText}`;
+  }
   if (nextRefresh) nextRefresh.textContent = status.interval_seconds ? `${mins} min` : "-";
+  if (status.live) renderLiveData(status.live);
+}
+
+function liveScore(match) {
+  const home = match.home_score ?? "-";
+  const away = match.away_score ?? "-";
+  return `${home} - ${away}`;
+}
+
+function liveStatusText(match) {
+  const minute = match.minute ? `${match.minute}'` : "";
+  const injury = match.injury_time ? `+${match.injury_time}` : "";
+  return [match.status, `${minute}${injury}`].filter(Boolean).join(" · ");
+}
+
+function renderLiveData(payload) {
+  const target = document.getElementById("liveMatches");
+  const updated = document.getElementById("liveUpdatedAt");
+  if (!target || !updated || !payload) return;
+  currentLive = payload;
+
+  updated.textContent = payload.last_checked_at || "-";
+  if (!payload.connected) {
+    target.innerHTML = `
+      <div class="liveEmpty">
+        <strong>${text("liveNotConnected")}</strong>
+        <span>${payload.last_error || text("liveNeedsToken")}</span>
+      </div>
+    `;
+    return;
+  }
+
+  if (!payload.matches?.length) {
+    target.innerHTML = `<div class="liveEmpty"><strong>${text("liveNoMatches")}</strong><span>${payload.source || payload.provider}</span></div>`;
+    return;
+  }
+
+  target.innerHTML = payload.matches
+    .map(
+      (match) => `
+        <article class="liveCard ${match.status?.toLowerCase() || ""}">
+          <div class="teams"><span>${teamName(match.home)}</span><span>${teamName(match.away)}</span></div>
+          <div class="liveScore">${liveScore(match)}</div>
+          <div class="meta"><span>${liveStatusText(match)}</span><span>${match.venue || match.date || ""}</span></div>
+        </article>
+      `,
+    )
+    .join("");
+  if (currentData) renderMatches(currentData);
+}
+
+function liveMatchById(matchId) {
+  return currentLive?.matches?.find((match) => match.id === matchId) || null;
 }
 
 function renderTicker(data) {
@@ -436,9 +509,15 @@ function renderMatches(data) {
       const pick = userPicks[m.id];
       const model = modelPick(m);
       const locked = isLocked(m);
+      const live = liveMatchById(m.id);
       return `
         <article class="matchCard ${locked ? "locked" : ""}">
           <div class="teams"><span>${teamName(m.home)}</span><span>${teamName(m.away)}</span></div>
+          ${
+            live
+              ? `<div class="liveInline"><span>LIVE</span><strong>${liveScore(live)}</strong><em>${liveStatusText(live)}</em></div>`
+              : ""
+          }
           <div class="scoreline">
             <span>${text("predictedScore")}</span>
             <strong>${m.scoreline}</strong>

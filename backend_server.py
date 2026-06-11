@@ -9,10 +9,13 @@ import subprocess
 import sys
 import threading
 import time
+from datetime import date
 from datetime import datetime, timedelta
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import urlencode
 from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 
 ROOT = Path(__file__).resolve().parent
@@ -21,6 +24,10 @@ PREDICTIONS_PATH = ROOT / "outputs" / "tournament_predictions.json"
 WEB_ROOT = ROOT / "web"
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "*")
 ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
+LIVE_DATA_PROVIDER = os.environ.get("LIVE_DATA_PROVIDER", "football-data").strip().lower()
+FOOTBALL_DATA_TOKEN = os.environ.get("FOOTBALL_DATA_TOKEN", "")
+FOOTBALL_DATA_COMPETITION = os.environ.get("FOOTBALL_DATA_COMPETITION", "WC")
+LIVE_CACHE_SECONDS = int(os.environ.get("LIVE_CACHE_SECONDS", "60"))
 RATE_BUCKETS: dict[tuple[str, str], list[float]] = {}
 RATE_LIMITS = {
     "GET": (120, 60),
@@ -35,6 +42,14 @@ UPDATE_STATE = {
     "last_finished_at": None,
     "last_error": None,
 }
+LIVE_STATE = {
+    "provider": LIVE_DATA_PROVIDER or "none",
+    "connected": False,
+    "last_checked_at": None,
+    "last_error": None,
+    "matches": [],
+}
+LIVE_CACHE = {"expires_at": 0.0, "payload": None}
 
 
 def db() -> sqlite3.Connection:
@@ -128,6 +143,133 @@ def check_rate_limit(handler: SimpleHTTPRequestHandler, key: str) -> None:
 
 def load_predictions() -> dict:
     return json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8"))
+
+
+def utc_now_iso() -> str:
+    return datetime.utcnow().isoformat(timespec="seconds") + "Z"
+
+
+def normalize_team_name(value: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", value.lower())
+
+
+def match_key(date_value: str, home: str, away: str) -> str:
+    return "|".join([date_value, normalize_team_name(home), normalize_team_name(away)])
+
+
+def predicted_match_index() -> dict[str, str]:
+    index = {}
+    for match in load_predictions().get("matches", []):
+        index[match_key(match["date"], match["home"], match["away"])] = match["id"]
+    return index
+
+
+def fetch_json(url: str, headers: dict[str, str], timeout: int = 12) -> dict:
+    request = Request(url, headers=headers)
+    with urlopen(request, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def score_value(match: dict, side: str) -> int | None:
+    score = match.get("score") or {}
+    full_time = score.get("fullTime") or {}
+    regular_time = score.get("regularTime") or {}
+    half_time = score.get("halfTime") or {}
+    for node in (full_time, regular_time, half_time):
+        value = node.get(side)
+        if value is not None:
+            return value
+    return None
+
+
+def map_football_data_match(match: dict, match_ids: dict[str, str]) -> dict:
+    utc_date = match.get("utcDate") or ""
+    match_date = utc_date[:10] if utc_date else ""
+    home = (match.get("homeTeam") or {}).get("name") or ""
+    away = (match.get("awayTeam") or {}).get("name") or ""
+    match_id = match_ids.get(match_key(match_date, home, away))
+    return {
+        "id": match_id,
+        "provider_id": match.get("id"),
+        "date": match_date,
+        "utc_date": utc_date,
+        "home": home,
+        "away": away,
+        "status": match.get("status") or "UNKNOWN",
+        "minute": match.get("minute"),
+        "injury_time": match.get("injuryTime"),
+        "venue": match.get("venue"),
+        "home_score": score_value(match, "home"),
+        "away_score": score_value(match, "away"),
+        "last_updated": match.get("lastUpdated"),
+    }
+
+
+def football_data_url() -> str:
+    today = date.today().isoformat()
+    query = urlencode(
+        {
+            "competitions": FOOTBALL_DATA_COMPETITION,
+            "dateFrom": today,
+            "dateTo": (date.today() + timedelta(days=1)).isoformat(),
+        }
+    )
+    return f"https://api.football-data.org/v4/matches?{query}"
+
+
+def load_live_matches(force: bool = False) -> dict:
+    now = time.monotonic()
+    if not force and LIVE_CACHE["payload"] and now < LIVE_CACHE["expires_at"]:
+        return LIVE_CACHE["payload"]
+
+    LIVE_STATE["provider"] = LIVE_DATA_PROVIDER or "none"
+    LIVE_STATE["last_checked_at"] = utc_now_iso()
+
+    if LIVE_DATA_PROVIDER not in {"football-data", "footballdata"}:
+        payload = {
+            **LIVE_STATE,
+            "connected": False,
+            "last_error": "LIVE_DATA_PROVIDER is not configured",
+            "matches": [],
+        }
+    elif not FOOTBALL_DATA_TOKEN:
+        payload = {
+            **LIVE_STATE,
+            "connected": False,
+            "last_error": "FOOTBALL_DATA_TOKEN is not configured",
+            "matches": [],
+        }
+    else:
+        try:
+            headers = {
+                "X-Auth-Token": FOOTBALL_DATA_TOKEN,
+                "X-Unfold-Goals": "true",
+                "X-Unfold-Bookings": "true",
+                "User-Agent": "WorldCup2026Predictor/0.1",
+            }
+            raw = fetch_json(football_data_url(), headers)
+            match_ids = predicted_match_index()
+            live_matches = [map_football_data_match(match, match_ids) for match in raw.get("matches", [])]
+            payload = {
+                "provider": LIVE_DATA_PROVIDER,
+                "connected": True,
+                "last_checked_at": LIVE_STATE["last_checked_at"],
+                "last_error": None,
+                "matches": live_matches,
+                "source": "football-data.org",
+            }
+        except Exception as exc:
+            payload = {
+                **LIVE_STATE,
+                "connected": False,
+                "last_error": str(exc),
+                "matches": [],
+            }
+
+    LIVE_STATE.update(payload)
+    LIVE_CACHE["payload"] = payload
+    LIVE_CACHE["expires_at"] = now + LIVE_CACHE_SECONDS
+    return payload
 
 
 def public_user(row: sqlite3.Row | dict) -> dict:
@@ -311,7 +453,10 @@ class Handler(SimpleHTTPRequestHandler):
             json_response(self, {"leaderboard": leaderboard()})
             return
         if path == "/api/update-status":
-            json_response(self, UPDATE_STATE)
+            json_response(self, {**UPDATE_STATE, "live": load_live_matches()})
+            return
+        if path == "/api/live":
+            json_response(self, load_live_matches())
             return
         if path.startswith("/web/"):
             self.path = path.removeprefix("/web") or "/index.html"

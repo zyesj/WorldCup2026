@@ -14,3 +14,11 @@ services:
         generateValue: true
       - key: DB_PATH
         value: data/worldcup.db
+      - key: LIVE_DATA_PROVIDER
+        value: football-data
+      - key: FOOTBALL_DATA_COMPETITION
+        value: WC
+      - key: FOOTBALL_DATA_TOKEN
+        sync: false
+      - key: LIVE_CACHE_SECONDS
+        value: "60"
