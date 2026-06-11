@@ -318,6 +318,7 @@ class Handler(SimpleHTTPRequestHandler):
             super().do_GET()
             return
         if path in {"/index.html", "/styles.css", "/app.js", "/data.js"}:
+            self.path = path
             super().do_GET()
             return
         json_response(self, {"error": "Not found"}, status=404)
