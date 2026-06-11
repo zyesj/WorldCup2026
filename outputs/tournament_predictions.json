@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T15:51:13Z",
+  "generated_at": "2026-06-11T17:02:00Z",
   "model_version": "v0.1-elo-poisson-market-prior",
   "note": "Round-of-32 third-place pairings are approximated for v0.1; probabilities are pre-match model outputs, not live odds.",
   "champion": "Spain",
@@ -2289,5 +2289,5 @@
       "scoreline": "1-1"
     }
   ],
-  "refreshed_at": "2026-06-11T15:51:13Z"
+  "refreshed_at": "2026-06-11T17:02:00Z"
 }

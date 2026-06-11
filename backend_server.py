@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+import secrets
 import sqlite3
 import subprocess
 import sys
@@ -16,6 +18,8 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parent
 DB_PATH = ROOT / "data" / "worldcup.db"
 PREDICTIONS_PATH = ROOT / "outputs" / "tournament_predictions.json"
+WEB_ROOT = ROOT / "web"
+ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "*")
 UPDATE_STATE = {
     "mode": "starting",
     "interval_seconds": None,
@@ -39,10 +43,15 @@ def init_db() -> None:
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nickname TEXT NOT NULL UNIQUE,
+                token TEXT NOT NULL DEFAULT '',
                 created_at TEXT NOT NULL
             )
             """
         )
+        user_columns = {row["name"] for row in conn.execute("PRAGMA table_info(users)").fetchall()}
+        if "token" not in user_columns:
+            conn.execute("ALTER TABLE users ADD COLUMN token TEXT NOT NULL DEFAULT ''")
+        conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS users_token_idx ON users(token)")
         conn.execute(
             """
             CREATE TABLE IF NOT EXISTS picks (
@@ -73,7 +82,7 @@ def json_response(handler: SimpleHTTPRequestHandler, payload: object, status: in
     handler.send_response(status)
     handler.send_header("Content-Type", "application/json; charset=utf-8")
     handler.send_header("Content-Length", str(len(body)))
-    handler.send_header("Access-Control-Allow-Origin", "*")
+    handler.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
     handler.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
     handler.send_header("Access-Control-Allow-Headers", "Content-Type")
     handler.end_headers()
@@ -89,6 +98,24 @@ def read_json_body(handler: SimpleHTTPRequestHandler) -> dict:
 
 def load_predictions() -> dict:
     return json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8"))
+
+
+def public_user(row: sqlite3.Row | dict) -> dict:
+    return {
+        "id": int(row["id"]),
+        "nickname": row["nickname"],
+        "token": row["token"],
+        "created_at": row["created_at"],
+    }
+
+
+def clean_nickname(raw: str) -> str:
+    nickname = " ".join(str(raw).strip().split())
+    nickname = re.sub(r"[^\w\u4e00-\u9fff\- ]", "", nickname, flags=re.UNICODE)
+    nickname = nickname[:20]
+    if not nickname:
+        raise ValueError("Nickname is required")
+    return nickname
 
 
 def current_update_interval() -> tuple[str, int]:
@@ -149,17 +176,27 @@ def start_updater() -> None:
 
 
 def get_or_create_user(nickname: str) -> dict:
-    nickname = " ".join(nickname.strip().split())[:32]
-    if not nickname:
-        raise ValueError("Nickname is required")
+    nickname = clean_nickname(nickname)
     now = datetime.utcnow().isoformat(timespec="seconds") + "Z"
     with db() as conn:
         row = conn.execute("SELECT * FROM users WHERE nickname = ?", (nickname,)).fetchone()
         if row:
-            return dict(row)
-        conn.execute("INSERT INTO users (nickname, created_at) VALUES (?, ?)", (nickname, now))
+            if not row["token"]:
+                token = secrets.token_urlsafe(32)
+                conn.execute("UPDATE users SET token = ? WHERE id = ?", (token, row["id"]))
+                row = conn.execute("SELECT * FROM users WHERE id = ?", (row["id"],)).fetchone()
+            return public_user(row)
+        token = secrets.token_urlsafe(32)
+        conn.execute("INSERT INTO users (nickname, token, created_at) VALUES (?, ?, ?)", (nickname, token, now))
         row = conn.execute("SELECT * FROM users WHERE nickname = ?", (nickname,)).fetchone()
-        return dict(row)
+        return public_user(row)
+
+
+def verify_user(user_id: int, token: str) -> None:
+    with db() as conn:
+        row = conn.execute("SELECT token FROM users WHERE id = ?", (user_id,)).fetchone()
+    if not row or not token or not secrets.compare_digest(row["token"], token):
+        raise ValueError("Invalid user token")
 
 
 def leaderboard() -> list[dict]:
@@ -185,7 +222,7 @@ def leaderboard() -> list[dict]:
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=str(ROOT), **kwargs)
+        super().__init__(*args, directory=str(WEB_ROOT), **kwargs)
 
     def end_headers(self) -> None:
         self.send_header("Cache-Control", "no-store")
@@ -193,7 +230,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_OPTIONS(self) -> None:
         self.send_response(204)
-        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
@@ -202,7 +239,7 @@ class Handler(SimpleHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == "/":
             self.send_response(302)
-            self.send_header("Location", "/web/index.html")
+            self.send_header("Location", "/index.html")
             self.end_headers()
             return
         if path == "/api/tournament":
@@ -214,7 +251,14 @@ class Handler(SimpleHTTPRequestHandler):
         if path == "/api/update-status":
             json_response(self, UPDATE_STATE)
             return
-        super().do_GET()
+        if path.startswith("/web/"):
+            self.path = path.removeprefix("/web") or "/index.html"
+            super().do_GET()
+            return
+        if path in {"/index.html", "/styles.css", "/app.js", "/data.js"}:
+            super().do_GET()
+            return
+        json_response(self, {"error": "Not found"}, status=404)
 
     def do_POST(self) -> None:
         path = urlparse(self.path).path
@@ -225,6 +269,7 @@ class Handler(SimpleHTTPRequestHandler):
                 return
             if path == "/api/picks":
                 user_id = int(payload["user_id"])
+                verify_user(user_id, str(payload.get("token", "")))
                 match_id = str(payload["match_id"])
                 pick = str(payload["pick"])
                 if pick not in {"home", "draw", "away"}:

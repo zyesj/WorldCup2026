@@ -197,22 +197,28 @@ function renderUserStatus() {
 function renderLeaderboard(rows) {
   const target = document.getElementById("leaderboard");
   if (!target) return;
+  target.replaceChildren();
   if (!rows.length) {
-    target.innerHTML = `<div class="emptyRank">${text("noRank")}</div>`;
+    const empty = document.createElement("div");
+    empty.className = "emptyRank";
+    empty.textContent = text("noRank");
+    target.appendChild(empty);
     return;
   }
-  target.innerHTML = rows
-    .map(
-      (row, idx) => `
-      <div class="rankRow">
-        <span>${idx + 1}</span>
-        <strong>${row.nickname}</strong>
-        <span>${row.score} pts</span>
-        <small>${row.correct}/${row.graded || 0}</small>
-      </div>
-    `,
-    )
-    .join("");
+  rows.forEach((row, idx) => {
+    const rank = document.createElement("div");
+    rank.className = "rankRow";
+    const position = document.createElement("span");
+    position.textContent = `${idx + 1}`;
+    const name = document.createElement("strong");
+    name.textContent = row.nickname;
+    const score = document.createElement("span");
+    score.textContent = `${row.score} pts`;
+    const detail = document.createElement("small");
+    detail.textContent = `${row.correct}/${row.graded || 0}`;
+    rank.append(position, name, score, detail);
+    target.appendChild(rank);
+  });
 }
 
 function applyStaticText() {
@@ -270,7 +276,7 @@ async function loadUpdateStatus() {
 async function savePickRemote(matchId, pick) {
   if (!currentUser) return;
   try {
-    await apiPost("/api/picks", { user_id: currentUser.id, match_id: matchId, pick });
+    await apiPost("/api/picks", { user_id: currentUser.id, token: currentUser.token, match_id: matchId, pick });
     renderLeaderboard(await loadLeaderboard());
   } catch (error) {
     console.warn("Could not save pick remotely", error);
