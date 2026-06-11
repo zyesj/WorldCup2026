@@ -2,6 +2,8 @@
 
 Lightweight, explainable prediction pipeline for the 2026 FIFA World Cup.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/zyesj/WorldCup2026)
+
 ## Current model
 
 - Historical results: `martj42/international_results`
