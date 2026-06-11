@@ -1,0 +1,56 @@
+{
+  "match": "Mexico vs South Africa",
+  "match_date": "2026-06-11",
+  "probabilities": {
+    "home_win": 0.7354132583562067,
+    "draw": 0.18087263553549615,
+    "away_win": 0.08371410610829708
+  },
+  "expected_goals": {
+    "home": 2.198551010408846,
+    "away": 0.4715868169559062
+  },
+  "most_likely_scores": [
+    {
+      "score": "2-0",
+      "probability": 0.16767689851040224
+    },
+    {
+      "score": "1-0",
+      "probability": 0.1525340078229259
+    },
+    {
+      "score": "3-0",
+      "probability": 0.12288207154742214
+    },
+    {
+      "score": "2-1",
+      "probability": 0.07907421484555914
+    },
+    {
+      "score": "1-1",
+      "probability": 0.07193302722674093
+    }
+  ],
+  "ratings": {
+    "home_elo": 1890.132695621105,
+    "away_elo": 1633.0242793447846
+  },
+  "form": {
+    "home": {
+      "matches": 12,
+      "goals_for": 1.858974358974359,
+      "goals_against": 0.44871794871794873,
+      "points_per_match": 2.2435897435897436,
+      "weighted_goal_diff": 1.4102564102564104
+    },
+    "away": {
+      "matches": 12,
+      "goals_for": 1.2918287937743191,
+      "goals_against": 1.0661478599221792,
+      "points_per_match": 1.4941634241245139,
+      "weighted_goal_diff": 0.22568093385214008
+    }
+  },
+  "upset_score": 14.701952854572074
+}

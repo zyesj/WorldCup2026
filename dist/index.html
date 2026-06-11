@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2026 World Cup Predictor</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">World Cup 2026 Live Model</p>
+        <h1 data-i18n="title">世界杯预测指挥中心 / World Cup Prediction Center</h1>
+      </div>
+      <div class="topActions">
+        <div class="langToggle" aria-label="Language">
+          <button class="langButton" data-lang="zh">中文</button>
+          <button class="langButton active" data-lang="both">双语</button>
+          <button class="langButton" data-lang="en">English</button>
+        </div>
+        <div class="status">
+          <span id="modelVersion">Model</span>
+          <strong id="champion">Champion</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="hero">
+        <div class="heroCard">
+          <p class="label" data-i18n="currentPath">当前冠军路径 / Current Champion Path</p>
+          <div id="championBig" class="championBig">Loading</div>
+          <p id="generatedAt" class="muted"></p>
+        </div>
+        <div class="heroCard">
+          <p class="label" data-i18n="todayFocus">今日重点 / Today's Focus</p>
+          <div id="todayMatches" class="todayMatches"></div>
+        </div>
+        <div class="heroCard">
+          <p class="label" data-i18n="upsetRadar">冷门雷达 / Upset Radar</p>
+          <div id="upsetRadar" class="upsetRadar"></div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="live updates">
+        <div id="tickerTrack" class="tickerTrack"></div>
+      </section>
+
+      <section class="gridTwo">
+        <div class="panel">
+          <div class="panelHead">
+            <h2 data-i18n="groupPrediction">小组预测 / Group Forecast</h2>
+            <span data-i18n="expectedTable">预计积分榜 / Expected Table</span>
+          </div>
+          <div id="groups" class="groups"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panelHead">
+            <h2 data-i18n="bracketTree">淘汰赛树 / Bracket Tree</h2>
+            <span data-i18n="mostLikelyPath">最可能路径 / Most Likely Path</span>
+          </div>
+          <div id="bracket" class="bracket"></div>
+        </div>
+      </section>
+
+      <section class="gridTwo">
+        <div class="panel">
+          <div class="panelHead">
+            <h2 data-i18n="myPicks">我的竞猜 / My Picks</h2>
+            <span id="userStatus">Local</span>
+          </div>
+          <form id="loginForm" class="loginForm">
+            <input id="nicknameInput" class="nicknameInput" maxlength="32" placeholder="输入昵称 / Enter nickname" />
+            <button class="saveButton" type="submit">保存 / Save</button>
+          </form>
+          <div id="myPickStats" class="pickStats"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panelHead">
+            <h2 data-i18n="leaderboard">排行榜 / Leaderboard</h2>
+            <span data-i18n="scoreRule">命中 +3 分 / Correct +3 pts</span>
+          </div>
+          <div id="leaderboard" class="leaderboard"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panelHead">
+          <h2 data-i18n="allGroupMatches">全部小组赛预测 / All Group Match Predictions</h2>
+          <span id="pickSummary" data-i18n="wdw">胜 / 平 / 负 · Win / Draw / Win</span>
+        </div>
+        <div id="matchList" class="matchList"></div>
+      </section>
+    </main>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

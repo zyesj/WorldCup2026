@@ -1,0 +1,2293 @@
+{
+  "generated_at": "2026-06-11T15:51:13Z",
+  "model_version": "v0.1-elo-poisson-market-prior",
+  "note": "Round-of-32 third-place pairings are approximated for v0.1; probabilities are pre-match model outputs, not live odds.",
+  "champion": "Spain",
+  "groups": {
+    "A": [
+      "Mexico",
+      "South Africa",
+      "South Korea",
+      "Czech Republic"
+    ],
+    "B": [
+      "Canada",
+      "Bosnia and Herzegovina",
+      "Qatar",
+      "Switzerland"
+    ],
+    "C": [
+      "Brazil",
+      "Morocco",
+      "Haiti",
+      "Scotland"
+    ],
+    "D": [
+      "United States",
+      "Paraguay",
+      "Australia",
+      "Turkey"
+    ],
+    "E": [
+      "Germany",
+      "Curaçao",
+      "Ivory Coast",
+      "Ecuador"
+    ],
+    "F": [
+      "Netherlands",
+      "Japan",
+      "Sweden",
+      "Tunisia"
+    ],
+    "G": [
+      "Belgium",
+      "Egypt",
+      "Iran",
+      "New Zealand"
+    ],
+    "H": [
+      "Spain",
+      "Cape Verde",
+      "Saudi Arabia",
+      "Uruguay"
+    ],
+    "I": [
+      "France",
+      "Senegal",
+      "Iraq",
+      "Norway"
+    ],
+    "J": [
+      "Argentina",
+      "Algeria",
+      "Austria",
+      "Jordan"
+    ],
+    "K": [
+      "Portugal",
+      "DR Congo",
+      "Uzbekistan",
+      "Colombia"
+    ],
+    "L": [
+      "England",
+      "Croatia",
+      "Ghana",
+      "Panama"
+    ]
+  },
+  "group_tables": {
+    "A": [
+      {
+        "team": "Mexico",
+        "group": "A",
+        "points": 6.753522355840759,
+        "goals_for": 6.017939692588263,
+        "goals_against": 1.885565054778784,
+        "goal_diff": 4.1323746378094794,
+        "rating": 1890.132695621105
+      },
+      {
+        "team": "South Korea",
+        "group": "A",
+        "points": 4.498780479273638,
+        "goals_for": 4.099313891757754,
+        "goals_against": 3.5778595032130345,
+        "goal_diff": 0.5214543885447198,
+        "rating": 1827.1900679930131
+      },
+      {
+        "team": "Czech Republic",
+        "group": "A",
+        "points": 3.4940658456946982,
+        "goals_for": 3.3769006738723686,
+        "goals_against": 4.424753649238011,
+        "goal_diff": -1.0478529753656423,
+        "rating": 1738.4773699964808
+      },
+      {
+        "team": "South Africa",
+        "group": "A",
+        "points": 1.9298464765102856,
+        "goals_for": 2.1038290541781515,
+        "goals_against": 5.709805105166708,
+        "goal_diff": -3.605976050988556,
+        "rating": 1633.0242793447846
+      }
+    ],
+    "B": [
+      {
+        "team": "Canada",
+        "group": "B",
+        "points": 6.295301808709027,
+        "goals_for": 5.466154119010178,
+        "goals_against": 2.1084341277072745,
+        "goal_diff": 3.3577199913029037,
+        "rating": 1818.9511211097856
+      },
+      {
+        "team": "Switzerland",
+        "group": "B",
+        "points": 6.189920869380163,
+        "goals_for": 5.5311392360087055,
+        "goals_against": 2.2573200889658045,
+        "goal_diff": 3.273819147042901,
+        "rating": 1885.0414127894849
+      },
+      {
+        "team": "Bosnia and Herzegovina",
+        "group": "B",
+        "points": 2.7172888631207366,
+        "goals_for": 2.659721460177054,
+        "goals_against": 4.987292281268621,
+        "goal_diff": -2.327570821091567,
+        "rating": 1639.1630639483396
+      },
+      {
+        "team": "Qatar",
+        "group": "B",
+        "points": 1.580823901318583,
+        "goals_for": 1.7308503540178002,
+        "goals_against": 6.034818671272037,
+        "goal_diff": -4.3039683172542365,
+        "rating": 1580.6458300056709
+      }
+    ],
+    "C": [
+      {
+        "team": "Brazil",
+        "group": "C",
+        "points": 6.412446610168264,
+        "goals_for": 5.813849190477195,
+        "goals_against": 2.246656387789974,
+        "goal_diff": 3.567192802687221,
+        "rating": 1978.2920119547207
+      },
+      {
+        "team": "Morocco",
+        "group": "C",
+        "points": 5.503689319612578,
+        "goals_for": 4.948277512466112,
+        "goals_against": 2.8440418656582,
+        "goal_diff": 2.104235646807912,
+        "rating": 1918.0398172470047
+      },
+      {
+        "team": "Scotland",
+        "group": "C",
+        "points": 3.20050892187077,
+        "goals_for": 3.2113272778703315,
+        "goals_against": 4.723704621293567,
+        "goal_diff": -1.512377343423236,
+        "rating": 1771.6788264234372
+      },
+      {
+        "team": "Haiti",
+        "group": "C",
+        "points": 1.6214254392043437,
+        "goals_for": 1.9265821924839945,
+        "goals_against": 6.0856332985558925,
+        "goal_diff": -4.159051106071898,
+        "rating": 1662.3331320804268
+      }
+    ],
+    "D": [
+      {
+        "team": "Turkey",
+        "group": "D",
+        "points": 4.782528844331715,
+        "goals_for": 4.2269845540971955,
+        "goals_against": 3.269808488911278,
+        "goal_diff": 0.9571760651859176,
+        "rating": 1892.6717531761547
+      },
+      {
+        "team": "United States",
+        "group": "D",
+        "points": 4.210458233077688,
+        "goals_for": 3.8470073246525542,
+        "goals_against": 3.690644945834366,
+        "goal_diff": 0.15636237881818804,
+        "rating": 1791.3761263981507
+      },
+      {
+        "team": "Paraguay",
+        "group": "D",
+        "points": 3.7898846808677593,
+        "goals_for": 3.461049851865834,
+        "goals_against": 3.8855573593858344,
+        "goal_diff": -0.42450750752000044,
+        "rating": 1854.0870366541412
+      },
+      {
+        "team": "Australia",
+        "group": "D",
+        "points": 3.6056719449285204,
+        "goals_for": 3.3530737269207584,
+        "goals_against": 4.042104663404864,
+        "goal_diff": -0.6890309364841052,
+        "rating": 1841.7659689653376
+      }
+    ],
+    "E": [
+      {
+        "team": "Germany",
+        "group": "E",
+        "points": 6.558135888583401,
+        "goals_for": 6.0315787869710356,
+        "goals_against": 2.0890197929525787,
+        "goal_diff": 3.942558994018457,
+        "rating": 1948.4216345083173
+      },
+      {
+        "team": "Ecuador",
+        "group": "E",
+        "points": 5.551077432367434,
+        "goals_for": 4.951289441714948,
+        "goals_against": 2.716814985480551,
+        "goal_diff": 2.2344744562343974,
+        "rating": 1944.2769835674935
+      },
+      {
+        "team": "Ivory Coast",
+        "group": "E",
+        "points": 3.519916121595906,
+        "goals_for": 3.476438998831621,
+        "goals_against": 4.451988634751718,
+        "goal_diff": -0.975549635920097,
+        "rating": 1771.2429983871275
+      },
+      {
+        "team": "Curaçao",
+        "group": "E",
+        "points": 1.183110631095305,
+        "goals_for": 1.5611683878277618,
+        "goals_against": 6.7626522021605195,
+        "goal_diff": -5.201483814332757,
+        "rating": 1587.6731639952795
+      }
+    ],
+    "F": [
+      {
+        "team": "Netherlands",
+        "group": "F",
+        "points": 6.4348042609949765,
+        "goals_for": 5.808468890027655,
+        "goals_against": 2.19152295992428,
+        "goal_diff": 3.6169459301033746,
+        "rating": 1939.4038878769825
+      },
+      {
+        "team": "Japan",
+        "group": "F",
+        "points": 5.755155782219218,
+        "goals_for": 5.120345496033084,
+        "goals_against": 2.6314365436639613,
+        "goal_diff": 2.488908952369123,
+        "rating": 1926.1550575284955
+      },
+      {
+        "team": "Sweden",
+        "group": "F",
+        "points": 2.404548899389323,
+        "goals_for": 2.532494040954521,
+        "goals_against": 5.372466820852287,
+        "goal_diff": -2.839972779897766,
+        "rating": 1733.8932505209116
+      },
+      {
+        "team": "Tunisia",
+        "group": "F",
+        "points": 2.143417060376251,
+        "goals_for": 2.2929374058292478,
+        "goals_against": 5.55881950840398,
+        "goal_diff": -3.265882102574732,
+        "rating": 1712.1759430971981
+      }
+    ],
+    "G": [
+      {
+        "team": "Belgium",
+        "group": "G",
+        "points": 6.372416681359027,
+        "goals_for": 5.729252206904562,
+        "goals_against": 2.303196835572952,
+        "goal_diff": 3.4260553713316098,
+        "rating": 1895.8497210435437
+      },
+      {
+        "team": "Iran",
+        "group": "G",
+        "points": 4.81366440831107,
+        "goals_for": 4.272395415832088,
+        "goals_against": 3.276840301693923,
+        "goal_diff": 0.9955551141381651,
+        "rating": 1841.706198390275
+      },
+      {
+        "team": "Egypt",
+        "group": "G",
+        "points": 3.382150371997373,
+        "goals_for": 3.1789527344088624,
+        "goals_against": 4.310752335106974,
+        "goal_diff": -1.1317996006981117,
+        "rating": 1766.6495974291595
+      },
+      {
+        "team": "New Zealand",
+        "group": "G",
+        "points": 2.0507609187634,
+        "goals_for": 2.2366519213656906,
+        "goals_against": 5.526462806137353,
+        "goal_diff": -3.2898108847716623,
+        "rating": 1713.8099404905008
+      }
+    ],
+    "H": [
+      {
+        "team": "Spain",
+        "group": "H",
+        "points": 7.999734884317172,
+        "goals_for": 7.738570506189172,
+        "goals_against": 0.9885423174495622,
+        "goal_diff": 6.750028188739609,
+        "rating": 2109.858926169212
+      },
+      {
+        "team": "Uruguay",
+        "group": "H",
+        "points": 4.760809550415057,
+        "goals_for": 4.234388237651959,
+        "goals_against": 3.552902567103424,
+        "goal_diff": 0.6814856705485348,
+        "rating": 1893.916778406201
+      },
+      {
+        "team": "Saudi Arabia",
+        "group": "H",
+        "points": 2.15551118230866,
+        "goals_for": 2.1606049460817065,
+        "goals_against": 5.784363649526265,
+        "goal_diff": -3.623758703444558,
+        "rating": 1672.683349750575
+      },
+      {
+        "team": "Cape Verde",
+        "group": "H",
+        "points": 2.0417354484213686,
+        "goals_for": 2.09326676136922,
+        "goals_against": 5.901021917212805,
+        "goal_diff": -3.8077551558435854,
+        "rating": 1645.6276023508374
+      }
+    ],
+    "I": [
+      {
+        "team": "France",
+        "group": "I",
+        "points": 6.94529939720406,
+        "goals_for": 6.331215224795728,
+        "goals_against": 1.9083485841086776,
+        "goal_diff": 4.422866640687051,
+        "rating": 2033.540101378744
+      },
+      {
+        "team": "Norway",
+        "group": "I",
+        "points": 4.646928147257965,
+        "goals_for": 4.334971475610407,
+        "goals_against": 3.6067854659752183,
+        "goal_diff": 0.7281860096351891,
+        "rating": 1877.6104815054646
+      },
+      {
+        "team": "Senegal",
+        "group": "I",
+        "points": 3.4502728267310827,
+        "goals_for": 3.2918178106410427,
+        "goals_against": 4.412880643328807,
+        "goal_diff": -1.1210628326877639,
+        "rating": 1849.3034690313975
+      },
+      {
+        "team": "Iraq",
+        "group": "I",
+        "points": 1.6984414556346163,
+        "goals_for": 1.9557456528428903,
+        "goals_against": 5.985735470477367,
+        "goal_diff": -4.029989817634477,
+        "rating": 1725.9583299014812
+      }
+    ],
+    "J": [
+      {
+        "team": "Argentina",
+        "group": "J",
+        "points": 7.4510131885609,
+        "goals_for": 6.888180686540183,
+        "goals_against": 1.4906748981579758,
+        "goal_diff": 5.397505788382207,
+        "rating": 2073.1566422459136
+      },
+      {
+        "team": "Austria",
+        "group": "J",
+        "points": 3.867728672369281,
+        "goals_for": 3.5972010177036733,
+        "goals_against": 4.1404548536647585,
+        "goal_diff": -0.5432538359610852,
+        "rating": 1821.109032915777
+      },
+      {
+        "team": "Algeria",
+        "group": "J",
+        "points": 3.733318582227235,
+        "goals_for": 3.467081504514677,
+        "goals_against": 4.211940268393904,
+        "goal_diff": -0.7448587638792268,
+        "rating": 1825.7972240860122
+      },
+      {
+        "team": "Jordan",
+        "group": "J",
+        "points": 1.740163465871774,
+        "goals_for": 2.0308389162095026,
+        "goals_against": 6.140232104751397,
+        "goal_diff": -4.109393188541894,
+        "rating": 1720.5688782927452
+      }
+    ],
+    "K": [
+      {
+        "team": "Portugal",
+        "group": "K",
+        "points": 6.415348739049957,
+        "goals_for": 5.773206611362723,
+        "goals_against": 2.2417024563111907,
+        "goal_diff": 3.5315041550515325,
+        "rating": 1972.3293405824036
+      },
+      {
+        "team": "Colombia",
+        "group": "K",
+        "points": 5.61672765596939,
+        "goals_for": 5.047609253805382,
+        "goals_against": 2.7969246135489225,
+        "goal_diff": 2.250684640256459,
+        "rating": 1956.3612783001558
+      },
+      {
+        "team": "Uzbekistan",
+        "group": "K",
+        "points": 2.635773986691052,
+        "goals_for": 2.6364676950502677,
+        "goals_against": 5.051802135316178,
+        "goal_diff": -2.4153344402659105,
+        "rating": 1770.3794860825271
+      },
+      {
+        "team": "DR Congo",
+        "group": "K",
+        "points": 2.0433627664717466,
+        "goals_for": 2.162917259475119,
+        "goals_against": 5.529771614517199,
+        "goal_diff": -3.36685435504208,
+        "rating": 1711.4905384659562
+      }
+    ],
+    "L": [
+      {
+        "team": "England",
+        "group": "L",
+        "points": 7.148696954733751,
+        "goals_for": 6.546322738217572,
+        "goals_against": 1.6448849429581442,
+        "goal_diff": 4.901437795259428,
+        "rating": 1997.815703765923
+      },
+      {
+        "team": "Croatia",
+        "group": "L",
+        "points": 5.236721351500992,
+        "goals_for": 4.847027161587956,
+        "goals_against": 3.1187556214249113,
+        "goal_diff": 1.7282715401630449,
+        "rating": 1905.8936933237233
+      },
+      {
+        "team": "Panama",
+        "group": "L",
+        "points": 3.1398673314663816,
+        "goals_for": 3.1375513748802093,
+        "goals_against": 4.870241634501923,
+        "goal_diff": -1.7326902596217137,
+        "rating": 1773.8550812685012
+      },
+      {
+        "team": "Ghana",
+        "group": "L",
+        "points": 1.3400184274706572,
+        "goals_for": 1.6354097712816538,
+        "goals_against": 6.532428847082413,
+        "goal_diff": -4.897019075800759,
+        "rating": 1627.925512467676
+      }
+    ]
+  },
+  "matches": [
+    {
+      "id": "2026-06-11-mexico-south-africa",
+      "date": "2026-06-11",
+      "group": "A",
+      "city": "Mexico City",
+      "country": "Mexico",
+      "home": "Mexico",
+      "away": "South Africa",
+      "probabilities": {
+        "home_win": 0.7354132583562067,
+        "draw": 0.18087263553549615,
+        "away_win": 0.08371410610829708
+      },
+      "expected_goals": {
+        "home": 2.198551010408846,
+        "away": 0.4715868169559062
+      },
+      "scoreline": "2-0",
+      "upset_score": 14.701952854572074
+    },
+    {
+      "id": "2026-06-11-south-korea-czech-republic",
+      "date": "2026-06-11",
+      "group": "A",
+      "city": "Zapopan",
+      "country": "Mexico",
+      "home": "South Korea",
+      "away": "Czech Republic",
+      "probabilities": {
+        "home_win": 0.4628515180892462,
+        "draw": 0.26060303530846723,
+        "away_win": 0.2765454466022864
+      },
+      "expected_goals": {
+        "home": 1.4741039994645297,
+        "away": 1.076878233584853
+      },
+      "scoreline": "1-1",
+      "upset_score": 36.77565089602499
+    },
+    {
+      "id": "2026-06-12-canada-bosnia-and-herzegovina",
+      "date": "2026-06-12",
+      "group": "B",
+      "city": "Toronto",
+      "country": "Canada",
+      "home": "Canada",
+      "away": "Bosnia and Herzegovina",
+      "probabilities": {
+        "home_win": 0.7113633004227513,
+        "draw": 0.19283904711982472,
+        "away_win": 0.09579765245742425
+      },
+      "expected_goals": {
+        "home": 1.995579561318519,
+        "away": 0.5710490413185265
+      },
+      "scoreline": "1-0",
+      "upset_score": 16.32913189493629
+    },
+    {
+      "id": "2026-06-12-united-states-paraguay",
+      "date": "2026-06-12",
+      "group": "D",
+      "city": "Inglewood",
+      "country": "United States",
+      "home": "United States",
+      "away": "Paraguay",
+      "probabilities": {
+        "home_win": 0.3997037508765477,
+        "draw": 0.2697366226202962,
+        "away_win": 0.330559626503156
+      },
+      "expected_goals": {
+        "home": 1.31832881339907,
+        "away": 1.1732715016680806
+      },
+      "scoreline": "1-1",
+      "upset_score": 46.42205367274482
+    },
+    {
+      "id": "2026-06-13-qatar-switzerland",
+      "date": "2026-06-13",
+      "group": "B",
+      "city": "Santa Clara",
+      "country": "United States",
+      "home": "Qatar",
+      "away": "Switzerland",
+      "probabilities": {
+        "home_win": 0.04953459251210929,
+        "draw": 0.14312473055948444,
+        "away_win": 0.8073406769284068
+      },
+      "expected_goals": {
+        "home": 0.40669506331085,
+        "away": 2.326196720376805
+      },
+      "scoreline": "0-2",
+      "upset_score": 9.962824820792886
+    },
+    {
+      "id": "2026-06-13-brazil-morocco",
+      "date": "2026-06-13",
+      "group": "C",
+      "city": "East Rutherford",
+      "country": "United States",
+      "home": "Brazil",
+      "away": "Morocco",
+      "probabilities": {
+        "home_win": 0.4563470986958391,
+        "draw": 0.2627048954904512,
+        "away_win": 0.2809480058137099
+      },
+      "expected_goals": {
+        "home": 1.4502345342075433,
+        "away": 1.0780233145735005
+      },
+      "scoreline": "1-1",
+      "upset_score": 37.28947192353678
+    },
+    {
+      "id": "2026-06-13-haiti-scotland",
+      "date": "2026-06-13",
+      "group": "C",
+      "city": "Foxborough",
+      "country": "United States",
+      "home": "Haiti",
+      "away": "Scotland",
+      "probabilities": {
+        "home_win": 0.20896915122205578,
+        "draw": 0.24455138612793836,
+        "away_win": 0.5464794626500057
+      },
+      "expected_goals": {
+        "home": 0.9204922824743034,
+        "away": 1.654976783212892
+      },
+      "scoreline": "0-1",
+      "upset_score": 29.456213636683422
+    },
+    {
+      "id": "2026-06-13-australia-turkey",
+      "date": "2026-06-13",
+      "group": "D",
+      "city": "Vancouver",
+      "country": "Canada",
+      "home": "Australia",
+      "away": "Turkey",
+      "probabilities": {
+        "home_win": 0.268544788870755,
+        "draw": 0.2630519988302784,
+        "away_win": 0.4684032122989665
+      },
+      "expected_goals": {
+        "home": 1.036499179188222,
+        "away": 1.4589571116766824
+      },
+      "scoreline": "1-1",
+      "upset_score": 38.9526047408372
+    },
+    {
+      "id": "2026-06-14-germany-curacao",
+      "date": "2026-06-14",
+      "group": "E",
+      "city": "Houston",
+      "country": "United States",
+      "home": "Germany",
+      "away": "Curaçao",
+      "probabilities": {
+        "home_win": 0.8561961929453007,
+        "draw": 0.11160262078008568,
+        "away_win": 0.03220118627461338
+      },
+      "expected_goals": {
+        "home": 2.604607917821592,
+        "away": 0.34400640981513986
+      },
+      "scoreline": "2-0",
+      "upset_score": 7.126210354764337
+    },
+    {
+      "id": "2026-06-14-ivory-coast-ecuador",
+      "date": "2026-06-14",
+      "group": "E",
+      "city": "Philadelphia",
+      "country": "United States",
+      "home": "Ivory Coast",
+      "away": "Ecuador",
+      "probabilities": {
+        "home_win": 0.18461156186706415,
+        "draw": 0.24018342375187854,
+        "away_win": 0.5752050143810574
+      },
+      "expected_goals": {
+        "home": 0.8375981167839579,
+        "away": 1.6870726562862455
+      },
+      "scoreline": "0-1",
+      "upset_score": 26.867576018022163
+    },
+    {
+      "id": "2026-06-14-netherlands-japan",
+      "date": "2026-06-14",
+      "group": "F",
+      "city": "Arlington",
+      "country": "United States",
+      "home": "Netherlands",
+      "away": "Japan",
+      "probabilities": {
+        "home_win": 0.4287005479084456,
+        "draw": 0.26905767876140985,
+        "away_win": 0.3022417733301444
+      },
+      "expected_goals": {
+        "home": 1.367524824919914,
+        "away": 1.102650927486078
+      },
+      "scoreline": "1-1",
+      "upset_score": 44.67833390432225
+    },
+    {
+      "id": "2026-06-14-sweden-tunisia",
+      "date": "2026-06-14",
+      "group": "F",
+      "city": "Guadalupe",
+      "country": "Mexico",
+      "home": "Sweden",
+      "away": "Tunisia",
+      "probabilities": {
+        "home_win": 0.3904409520059974,
+        "draw": 0.2713262631184312,
+        "away_win": 0.3382327848755712
+      },
+      "expected_goals": {
+        "home": 1.2908840587316783,
+        "away": 1.1817636368698414
+      },
+      "scoreline": "1-1",
+      "upset_score": 49.71362080585659
+    },
+    {
+      "id": "2026-06-15-belgium-egypt",
+      "date": "2026-06-15",
+      "group": "G",
+      "city": "Seattle",
+      "country": "United States",
+      "home": "Belgium",
+      "away": "Egypt",
+      "probabilities": {
+        "home_win": 0.641563487768439,
+        "draw": 0.21511032751249387,
+        "away_win": 0.14332618471906733
+      },
+      "expected_goals": {
+        "home": 1.8892127954951015,
+        "away": 0.7577771010049386
+      },
+      "scoreline": "1-0",
+      "upset_score": 21.86147993484402
+    },
+    {
+      "id": "2026-06-15-iran-new-zealand",
+      "date": "2026-06-15",
+      "group": "G",
+      "city": "Inglewood",
+      "country": "United States",
+      "home": "Iran",
+      "away": "New Zealand",
+      "probabilities": {
+        "home_win": 0.6238849737158598,
+        "draw": 0.22541512679303793,
+        "away_win": 0.1506998994911022
+      },
+      "expected_goals": {
+        "home": 1.7954917827808554,
+        "away": 0.746596280237037
+      },
+      "scoreline": "1-0",
+      "upset_score": 22.95951938686655
+    },
+    {
+      "id": "2026-06-15-spain-cape-verde",
+      "date": "2026-06-15",
+      "group": "H",
+      "city": "Atlanta",
+      "country": "United States",
+      "home": "Spain",
+      "away": "Cape Verde",
+      "probabilities": {
+        "home_win": 0.8906146215853403,
+        "draw": 0.09010880928748397,
+        "away_win": 0.01927656912717584
+      },
+      "expected_goals": {
+        "home": 2.7629055049965627,
+        "away": 0.25
+      },
+      "scoreline": "2-0",
+      "upset_score": 5.081465237779523
+    },
+    {
+      "id": "2026-06-15-saudi-arabia-uruguay",
+      "date": "2026-06-15",
+      "group": "H",
+      "city": "Miami Gardens",
+      "country": "United States",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "probabilities": {
+        "home_win": 0.1264575417393182,
+        "draw": 0.21497243677659855,
+        "away_win": 0.658570021484083
+      },
+      "expected_goals": {
+        "home": 0.6636210661013865,
+        "away": 1.8547133879664734
+      },
+      "scoreline": "0-1",
+      "upset_score": 20.16978946111277
+    },
+    {
+      "id": "2026-06-16-france-senegal",
+      "date": "2026-06-16",
+      "group": "I",
+      "city": "East Rutherford",
+      "country": "United States",
+      "home": "France",
+      "away": "Senegal",
+      "probabilities": {
+        "home_win": 0.7002927329240742,
+        "draw": 0.192308932445757,
+        "away_win": 0.10739833463016853
+      },
+      "expected_goals": {
+        "home": 2.044407418324501,
+        "away": 0.6508180256428063
+      },
+      "scoreline": "2-0",
+      "upset_score": 17.470646098618346
+    },
+    {
+      "id": "2026-06-16-iraq-norway",
+      "date": "2026-06-16",
+      "group": "I",
+      "city": "Foxborough",
+      "country": "United States",
+      "home": "Iraq",
+      "away": "Norway",
+      "probabilities": {
+        "home_win": 0.12425171322946284,
+        "draw": 0.20414649620732597,
+        "away_win": 0.671601790563211
+      },
+      "expected_goals": {
+        "home": 0.7010485982368837,
+        "away": 1.963664746746238
+      },
+      "scoreline": "0-1",
+      "upset_score": 19.57029869020269
+    },
+    {
+      "id": "2026-06-16-argentina-algeria",
+      "date": "2026-06-16",
+      "group": "J",
+      "city": "Kansas City",
+      "country": "United States",
+      "home": "Argentina",
+      "away": "Algeria",
+      "probabilities": {
+        "home_win": 0.7384920470317965,
+        "draw": 0.17735810607136668,
+        "away_win": 0.08414984689683647
+      },
+      "expected_goals": {
+        "home": 2.121174971284869,
+        "away": 0.555265140374331
+      },
+      "scoreline": "2-0",
+      "upset_score": 14.62251840218148
+    },
+    {
+      "id": "2026-06-16-austria-jordan",
+      "date": "2026-06-16",
+      "group": "J",
+      "city": "Santa Clara",
+      "country": "United States",
+      "home": "Austria",
+      "away": "Jordan",
+      "probabilities": {
+        "home_win": 0.5926146842356981,
+        "draw": 0.23177751712599412,
+        "away_win": 0.1756077986383075
+      },
+      "expected_goals": {
+        "home": 1.7627303158907126,
+        "away": 0.8391345631297832
+      },
+      "scoreline": "1-0",
+      "upset_score": 25.672992963240546
+    },
+    {
+      "id": "2026-06-17-portugal-dr-congo",
+      "date": "2026-06-17",
+      "group": "K",
+      "city": "Houston",
+      "country": "United States",
+      "home": "Portugal",
+      "away": "DR Congo",
+      "probabilities": {
+        "home_win": 0.7649625798930624,
+        "draw": 0.16431518010299148,
+        "away_win": 0.07072224000394564
+      },
+      "expected_goals": {
+        "home": 2.206500728893337,
+        "away": 0.5069248335345946
+      },
+      "scoreline": "2-0",
+      "upset_score": 12.823255303999264
+    },
+    {
+      "id": "2026-06-17-uzbekistan-colombia",
+      "date": "2026-06-17",
+      "group": "K",
+      "city": "Mexico City",
+      "country": "Mexico",
+      "home": "Uzbekistan",
+      "away": "Colombia",
+      "probabilities": {
+        "home_win": 0.1323820056497779,
+        "draw": 0.21095554642525838,
+        "away_win": 0.6566624479249642
+      },
+      "expected_goals": {
+        "home": 0.7160622585836419,
+        "away": 1.9099661818715488
+      },
+      "scoreline": "0-1",
+      "upset_score": 20.62164468986183
+    },
+    {
+      "id": "2026-06-17-england-croatia",
+      "date": "2026-06-17",
+      "group": "L",
+      "city": "Arlington",
+      "country": "United States",
+      "home": "England",
+      "away": "Croatia",
+      "probabilities": {
+        "home_win": 0.5763362954465502,
+        "draw": 0.23692496733238858,
+        "away_win": 0.18673873722106146
+      },
+      "expected_goals": {
+        "home": 1.7203114213783453,
+        "away": 0.8642043357718205
+      },
+      "scoreline": "1-0",
+      "upset_score": 26.966247578739747
+    },
+    {
+      "id": "2026-06-17-ghana-panama",
+      "date": "2026-06-17",
+      "group": "L",
+      "city": "Toronto",
+      "country": "Canada",
+      "home": "Ghana",
+      "away": "Panama",
+      "probabilities": {
+        "home_win": 0.18125786191934992,
+        "draw": 0.23438206448163393,
+        "away_win": 0.5843600735990164
+      },
+      "expected_goals": {
+        "home": 0.8522658407624399,
+        "away": 1.7415704981665332
+      },
+      "scoreline": "0-1",
+      "upset_score": 26.329158448792178
+    },
+    {
+      "id": "2026-06-18-czech-republic-south-africa",
+      "date": "2026-06-18",
+      "group": "A",
+      "city": "Atlanta",
+      "country": "United States",
+      "home": "Czech Republic",
+      "away": "South Africa",
+      "probabilities": {
+        "home_win": 0.5495956789460978,
+        "draw": 0.24425459355971008,
+        "away_win": 0.20614972749419203
+      },
+      "expected_goals": {
+        "home": 1.6572249714950487,
+        "away": 0.9102241760005547
+      },
+      "scoreline": "1-0",
+      "upset_score": 29.163883524009055
+    },
+    {
+      "id": "2026-06-18-mexico-south-korea",
+      "date": "2026-06-18",
+      "group": "A",
+      "city": "Zapopan",
+      "country": "Mexico",
+      "home": "Mexico",
+      "away": "South Korea",
+      "probabilities": {
+        "home_win": 0.6137740031268982,
+        "draw": 0.2281359827005306,
+        "away_win": 0.15809001417257126
+      },
+      "expected_goals": {
+        "home": 1.7789632084064908,
+        "away": 0.7711807690304111
+      },
+      "scoreline": "1-0",
+      "upset_score": 23.793760811775698
+    },
+    {
+      "id": "2026-06-18-switzerland-bosnia-and-herzegovina",
+      "date": "2026-06-18",
+      "group": "B",
+      "city": "Inglewood",
+      "country": "United States",
+      "home": "Switzerland",
+      "away": "Bosnia and Herzegovina",
+      "probabilities": {
+        "home_win": 0.7086139211133845,
+        "draw": 0.19018383812491743,
+        "away_win": 0.10120224076169804
+      },
+      "expected_goals": {
+        "home": 2.045645730367722,
+        "away": 0.6189274010314787
+      },
+      "scoreline": "2-0",
+      "upset_score": 16.776658410541913
+    },
+    {
+      "id": "2026-06-18-canada-qatar",
+      "date": "2026-06-18",
+      "group": "B",
+      "city": "Vancouver",
+      "country": "Canada",
+      "home": "Canada",
+      "away": "Qatar",
+      "probabilities": {
+        "home_win": 0.801534787915136,
+        "draw": 0.14954666315214532,
+        "away_win": 0.04891854893271904
+      },
+      "expected_goals": {
+        "home": 2.238876933068183,
+        "away": 0.3780883011245696
+      },
+      "scoreline": "2-0",
+      "upset_score": 10.12598810359699
+    },
+    {
+      "id": "2026-06-19-scotland-morocco",
+      "date": "2026-06-19",
+      "group": "C",
+      "city": "Foxborough",
+      "country": "United States",
+      "home": "Scotland",
+      "away": "Morocco",
+      "probabilities": {
+        "home_win": 0.17529729578494904,
+        "draw": 0.23104795056268723,
+        "away_win": 0.5936547536523643
+      },
+      "expected_goals": {
+        "home": 0.8415079895802535,
+        "away": 1.769855406168276
+      },
+      "scoreline": "0-1",
+      "upset_score": 25.616407848188956
+    },
+    {
+      "id": "2026-06-19-brazil-haiti",
+      "date": "2026-06-19",
+      "group": "C",
+      "city": "Philadelphia",
+      "country": "United States",
+      "home": "Brazil",
+      "away": "Haiti",
+      "probabilities": {
+        "home_win": 0.7968294676777888,
+        "draw": 0.14697915192402072,
+        "away_win": 0.05619138039819053
+      },
+      "expected_goals": {
+        "home": 2.330257723618664,
+        "away": 0.45379056813928786
+      },
+      "scoreline": "2-0",
+      "upset_score": 10.763408357159777
+    },
+    {
+      "id": "2026-06-19-united-states-australia",
+      "date": "2026-06-19",
+      "group": "D",
+      "city": "Seattle",
+      "country": "United States",
+      "home": "United States",
+      "away": "Australia",
+      "probabilities": {
+        "home_win": 0.4169483473816648,
+        "draw": 0.2673488392914616,
+        "away_win": 0.31570281332687333
+      },
+      "expected_goals": {
+        "home": 1.363558141883584,
+        "away": 1.1501099030241426
+      },
+      "scoreline": "1-1",
+      "upset_score": 43.37427181595091
+    },
+    {
+      "id": "2026-06-19-turkey-paraguay",
+      "date": "2026-06-19",
+      "group": "D",
+      "city": "Santa Clara",
+      "country": "United States",
+      "home": "Turkey",
+      "away": "Paraguay",
+      "probabilities": {
+        "home_win": 0.4455383865828588,
+        "draw": 0.2674567219833677,
+        "away_win": 0.28700489143377383
+      },
+      "expected_goals": {
+        "home": 1.4007639012783706,
+        "away": 1.0681889403531555
+      },
+      "scoreline": "1-1",
+      "upset_score": 42.431308430153635
+    },
+    {
+      "id": "2026-06-20-germany-ivory-coast",
+      "date": "2026-06-20",
+      "group": "E",
+      "city": "Toronto",
+      "country": "Canada",
+      "home": "Germany",
+      "away": "Ivory Coast",
+      "probabilities": {
+        "home_win": 0.6736420295827841,
+        "draw": 0.2011973663445298,
+        "away_win": 0.12516060407268612
+      },
+      "expected_goals": {
+        "home": 1.999826672603608,
+        "away": 0.7217239867543523
+      },
+      "scoreline": "1-0",
+      "upset_score": 19.557968229327155
+    },
+    {
+      "id": "2026-06-20-ecuador-curacao",
+      "date": "2026-06-20",
+      "group": "E",
+      "city": "Kansas City",
+      "country": "United States",
+      "home": "Ecuador",
+      "away": "Curaçao",
+      "probabilities": {
+        "home_win": 0.7838339207795426,
+        "draw": 0.1560321569596349,
+        "away_win": 0.06013392226082295
+      },
+      "expected_goals": {
+        "home": 2.2409273890456163,
+        "away": 0.45207267215075736
+      },
+      "scoreline": "2-0",
+      "upset_score": 11.474517719669517
+    },
+    {
+      "id": "2026-06-20-netherlands-sweden",
+      "date": "2026-06-20",
+      "group": "F",
+      "city": "Houston",
+      "country": "United States",
+      "home": "Netherlands",
+      "away": "Sweden",
+      "probabilities": {
+        "home_win": 0.7472483575363145,
+        "draw": 0.17018306601860697,
+        "away_win": 0.08256857644507892
+      },
+      "expected_goals": {
+        "home": 2.201870663952964,
+        "away": 0.576085130369406
+      },
+      "scoreline": "2-0",
+      "upset_score": 14.213264955159136
+    },
+    {
+      "id": "2026-06-20-tunisia-japan",
+      "date": "2026-06-20",
+      "group": "F",
+      "city": "Guadalupe",
+      "country": "Mexico",
+      "home": "Tunisia",
+      "away": "Japan",
+      "probabilities": {
+        "home_win": 0.0985621626495827,
+        "draw": 0.19076460712808088,
+        "away_win": 0.7106732302223363
+      },
+      "expected_goals": {
+        "home": 0.5983868668906106,
+        "away": 2.028862048517525
+      },
+      "scoreline": "0-2",
+      "upset_score": 16.5329775144411
+    },
+    {
+      "id": "2026-06-21-belgium-iran",
+      "date": "2026-06-21",
+      "group": "G",
+      "city": "Inglewood",
+      "country": "United States",
+      "home": "Belgium",
+      "away": "Iran",
+      "probabilities": {
+        "home_win": 0.5095941895401889,
+        "draw": 0.2517110855874728,
+        "away_win": 0.2386947248723386
+      },
+      "expected_goals": {
+        "home": 1.583378417892558,
+        "away": 0.9981897749572857
+      },
+      "scoreline": "1-0",
+      "upset_score": 35.18213776440316
+    },
+    {
+      "id": "2026-06-21-new-zealand-egypt",
+      "date": "2026-06-21",
+      "group": "G",
+      "city": "Vancouver",
+      "country": "Canada",
+      "home": "New Zealand",
+      "away": "Egypt",
+      "probabilities": {
+        "home_win": 0.24137492699650828,
+        "draw": 0.2635152893158588,
+        "away_win": 0.4951097836876325
+      },
+      "expected_goals": {
+        "home": 0.9428256815179261,
+        "away": 1.4743100298395957
+      },
+      "scoreline": "0-1",
+      "upset_score": 36.01976899306685
+    },
+    {
+      "id": "2026-06-21-spain-saudi-arabia",
+      "date": "2026-06-21",
+      "group": "H",
+      "city": "Atlanta",
+      "country": "United States",
+      "home": "Spain",
+      "away": "Saudi Arabia",
+      "probabilities": {
+        "home_win": 0.8895037045218399,
+        "draw": 0.09100753846351471,
+        "away_win": 0.01948875701464586
+      },
+      "expected_goals": {
+        "home": 2.7504049101256016,
+        "away": 0.25
+      },
+      "scoreline": "2-0",
+      "upset_score": 5.1341395476876
+    },
+    {
+      "id": "2026-06-21-uruguay-cape-verde",
+      "date": "2026-06-21",
+      "group": "H",
+      "city": "Miami Gardens",
+      "country": "United States",
+      "home": "Uruguay",
+      "away": "Cape Verde",
+      "probabilities": {
+        "home_win": 0.6661849048175627,
+        "draw": 0.21063927863139134,
+        "away_win": 0.1231758165510461
+      },
+      "expected_goals": {
+        "home": 1.8911325322359225,
+        "away": 0.6640214099350304
+      },
+      "scoreline": "1-0",
+      "upset_score": 19.689956407203308
+    },
+    {
+      "id": "2026-06-22-france-iraq",
+      "date": "2026-06-22",
+      "group": "I",
+      "city": "Philadelphia",
+      "country": "United States",
+      "home": "France",
+      "away": "Iraq",
+      "probabilities": {
+        "home_win": 0.8247621976450413,
+        "draw": 0.1320838363787777,
+        "away_win": 0.043153965976181145
+      },
+      "expected_goals": {
+        "home": 2.419544789919794,
+        "away": 0.38631373996844953
+      },
+      "scoreline": "2-0",
+      "upset_score": 8.938330870875335
+    },
+    {
+      "id": "2026-06-22-norway-senegal",
+      "date": "2026-06-22",
+      "group": "I",
+      "city": "East Rutherford",
+      "country": "United States",
+      "home": "Norway",
+      "away": "Senegal",
+      "probabilities": {
+        "home_win": 0.4786580087701895,
+        "draw": 0.2591321049704891,
+        "away_win": 0.2622098862593213
+      },
+      "expected_goals": {
+        "home": 1.5000899103667482,
+        "away": 1.038473851186902
+      },
+      "scoreline": "1-1",
+      "upset_score": 40.89377080301121
+    },
+    {
+      "id": "2026-06-22-argentina-austria",
+      "date": "2026-06-22",
+      "group": "J",
+      "city": "Arlington",
+      "country": "United States",
+      "home": "Argentina",
+      "away": "Austria",
+      "probabilities": {
+        "home_win": 0.7297165350286732,
+        "draw": 0.18028334929527415,
+        "away_win": 0.09000011567605257
+      },
+      "expected_goals": {
+        "home": 2.114329979235821,
+        "away": 0.585409757783645
+      },
+      "scoreline": "2-0",
+      "upset_score": 15.30992879293985
+    },
+    {
+      "id": "2026-06-22-jordan-algeria",
+      "date": "2026-06-22",
+      "group": "J",
+      "city": "Santa Clara",
+      "country": "United States",
+      "home": "Jordan",
+      "away": "Algeria",
+      "probabilities": {
+        "home_win": 0.1808514011115711,
+        "draw": 0.23602777194153404,
+        "away_win": 0.5831208269468947
+      },
+      "expected_goals": {
+        "home": 0.8417043530797192,
+        "away": 1.7248260528411918
+      },
+      "scoreline": "0-1",
+      "upset_score": 26.3461121291108
+    },
+    {
+      "id": "2026-06-23-portugal-uzbekistan",
+      "date": "2026-06-23",
+      "group": "K",
+      "city": "Houston",
+      "country": "United States",
+      "home": "Portugal",
+      "away": "Uzbekistan",
+      "probabilities": {
+        "home_win": 0.7211917526497953,
+        "draw": 0.18358049284113045,
+        "away_win": 0.09522775450907418
+      },
+      "expected_goals": {
+        "home": 2.0985176528709264,
+        "away": 0.6080032199055212
+      },
+      "scoreline": "2-0",
+      "upset_score": 15.948092700346985
+    },
+    {
+      "id": "2026-06-23-colombia-dr-congo",
+      "date": "2026-06-23",
+      "group": "K",
+      "city": "Zapopan",
+      "country": "Mexico",
+      "home": "Colombia",
+      "away": "DR Congo",
+      "probabilities": {
+        "home_win": 0.7035724154252423,
+        "draw": 0.19374309825852631,
+        "away_win": 0.102684486316232
+      },
+      "expected_goals": {
+        "home": 2.0108686690627575,
+        "away": 0.6126741253668206
+      },
+      "scoreline": "2-0",
+      "upset_score": 17.04945707067162
+    },
+    {
+      "id": "2026-06-23-england-ghana",
+      "date": "2026-06-23",
+      "group": "L",
+      "city": "Foxborough",
+      "country": "United States",
+      "home": "England",
+      "away": "Ghana",
+      "probabilities": {
+        "home_win": 0.8721096034332723,
+        "draw": 0.10460959311511002,
+        "away_win": 0.023280803451617715
+      },
+      "expected_goals": {
+        "home": 2.583773824306778,
+        "away": 0.25694188820886765
+      },
+      "scoreline": "2-0",
+      "upset_score": 5.989416104190623
+    },
+    {
+      "id": "2026-06-23-panama-croatia",
+      "date": "2026-06-23",
+      "group": "L",
+      "city": "Toronto",
+      "country": "Canada",
+      "home": "Panama",
+      "away": "Croatia",
+      "probabilities": {
+        "home_win": 0.1816809679885269,
+        "draw": 0.23108393610506367,
+        "away_win": 0.5872350959064097
+      },
+      "expected_goals": {
+        "home": 0.87224215773622,
+        "away": 1.7757383012070334
+      },
+      "scoreline": "0-1",
+      "upset_score": 26.25603456252992
+    },
+    {
+      "id": "2026-06-24-mexico-czech-republic",
+      "date": "2026-06-24",
+      "group": "A",
+      "city": "Mexico City",
+      "country": "Mexico",
+      "home": "Mexico",
+      "away": "Czech Republic",
+      "probabilities": {
+        "home_win": 0.7015629154974005,
+        "draw": 0.19226320666321534,
+        "away_win": 0.1061738778393843
+      },
+      "expected_goals": {
+        "home": 2.0404254737729266,
+        "away": 0.6427974687924667
+      },
+      "scoreline": "2-0",
+      "upset_score": 17.346600017150966
+    },
+    {
+      "id": "2026-06-24-south-africa-south-korea",
+      "date": "2026-06-24",
+      "group": "A",
+      "city": "Guadalupe",
+      "country": "Mexico",
+      "home": "South Africa",
+      "away": "South Korea",
+      "probabilities": {
+        "home_win": 0.13915745256480325,
+        "draw": 0.21765538891320246,
+        "away_win": 0.6431871585219948
+      },
+      "expected_goals": {
+        "home": 0.7220180612216905,
+        "away": 1.8540291232628132
+      },
+      "scoreline": "0-1",
+      "upset_score": 21.53368386844241
+    },
+    {
+      "id": "2026-06-24-canada-switzerland",
+      "date": "2026-06-24",
+      "group": "B",
+      "city": "Vancouver",
+      "country": "Canada",
+      "home": "Canada",
+      "away": "Switzerland",
+      "probabilities": {
+        "home_win": 0.37906405780572594,
+        "draw": 0.2770296600062182,
+        "away_win": 0.34390628218805613
+      },
+      "expected_goals": {
+        "home": 1.2316976246234759,
+        "away": 1.1592967852641785
+      },
+      "scoreline": "1-1",
+      "upset_score": 48.417501320587164
+    },
+    {
+      "id": "2026-06-24-bosnia-and-herzegovina-qatar",
+      "date": "2026-06-24",
+      "group": "B",
+      "city": "Seattle",
+      "country": "United States",
+      "home": "Bosnia and Herzegovina",
+      "away": "Qatar",
+      "probabilities": {
+        "home_win": 0.4931085599032408,
+        "draw": 0.26394061850890493,
+        "away_win": 0.24295082158785447
+      },
+      "expected_goals": {
+        "home": 1.4697450178270488,
+        "away": 0.9460669895823804
+      },
+      "scoreline": "1-0",
+      "upset_score": 35.51093573347687
+    },
+    {
+      "id": "2026-06-24-scotland-brazil",
+      "date": "2026-06-24",
+      "group": "C",
+      "city": "Miami Gardens",
+      "country": "United States",
+      "home": "Scotland",
+      "away": "Brazil",
+      "probabilities": {
+        "home_win": 0.12079716112782246,
+        "draw": 0.19718782649181238,
+        "away_win": 0.682015012380365
+      },
+      "expected_goals": {
+        "home": 0.7148425050771858,
+        "away": 2.033356932650988
+      },
+      "scoreline": "0-2",
+      "upset_score": 18.98129003999568
+    },
+    {
+      "id": "2026-06-24-morocco-haiti",
+      "date": "2026-06-24",
+      "group": "C",
+      "city": "Atlanta",
+      "country": "United States",
+      "home": "Morocco",
+      "away": "Haiti",
+      "probabilities": {
+        "home_win": 0.7355565655380276,
+        "draw": 0.17945849854713486,
+        "away_win": 0.08498493591483687
+      },
+      "expected_goals": {
+        "home": 2.1003987917243356,
+        "away": 0.5522993418704034
+      },
+      "scoreline": "2-0",
+      "upset_score": 14.779541040633408
+    },
+    {
+      "id": "2026-06-25-united-states-turkey",
+      "date": "2026-06-25",
+      "group": "D",
+      "city": "Inglewood",
+      "country": "United States",
+      "home": "United States",
+      "away": "Turkey",
+      "probabilities": {
+        "home_win": 0.31900942655172637,
+        "draw": 0.2663881967361139,
+        "away_win": 0.41460237671215977
+      },
+      "expected_goals": {
+        "home": 1.1651203693699002,
+        "away": 1.3672635411421428
+      },
+      "scoreline": "1-1",
+      "upset_score": 49.780004754297096
+    },
+    {
+      "id": "2026-06-25-paraguay-australia",
+      "date": "2026-06-25",
+      "group": "D",
+      "city": "Santa Clara",
+      "country": "United States",
+      "home": "Paraguay",
+      "away": "Australia",
+      "probabilities": {
+        "home_win": 0.3741746217068357,
+        "draw": 0.27747391733279886,
+        "away_win": 0.34835146096036557
+      },
+      "expected_goals": {
+        "home": 1.2195894098445976,
+        "away": 1.1664646447083935
+      },
+      "scoreline": "1-1",
+      "upset_score": 52.068205080028086
+    },
+    {
+      "id": "2026-06-25-curacao-ivory-coast",
+      "date": "2026-06-25",
+      "group": "E",
+      "city": "Philadelphia",
+      "country": "United States",
+      "home": "Curaçao",
+      "away": "Ivory Coast",
+      "probabilities": {
+        "home_win": 0.14205329639293302,
+        "draw": 0.21231063857047627,
+        "away_win": 0.6456360650365901
+      },
+      "expected_goals": {
+        "home": 0.7650893058618646,
+        "away": 1.9171168952933104
+      },
+      "scoreline": "0-1",
+      "upset_score": 21.636201989259973
+    },
+    {
+      "id": "2026-06-25-ecuador-germany",
+      "date": "2026-06-25",
+      "group": "E",
+      "city": "East Rutherford",
+      "country": "United States",
+      "home": "Ecuador",
+      "away": "Germany",
+      "probabilities": {
+        "home_win": 0.27043710874092436,
+        "draw": 0.2664337199513481,
+        "away_win": 0.463129171307728
+      },
+      "expected_goals": {
+        "home": 1.0232893963830862,
+        "away": 1.4271441965458356
+      },
+      "scoreline": "1-1",
+      "upset_score": 42.0650817137694
+    },
+    {
+      "id": "2026-06-25-japan-sweden",
+      "date": "2026-06-25",
+      "group": "F",
+      "city": "Arlington",
+      "country": "United States",
+      "home": "Japan",
+      "away": "Sweden",
+      "probabilities": {
+        "home_win": 0.6857293187478748,
+        "draw": 0.19940052942865927,
+        "away_win": 0.11487015182346558
+      },
+      "expected_goals": {
+        "home": 1.9888325200294812,
+        "away": 0.6655248518534368
+      },
+      "scoreline": "1-0",
+      "upset_score": 18.46603371234963
+    },
+    {
+      "id": "2026-06-25-tunisia-netherlands",
+      "date": "2026-06-25",
+      "group": "F",
+      "city": "Kansas City",
+      "country": "United States",
+      "home": "Tunisia",
+      "away": "Netherlands",
+      "probabilities": {
+        "home_win": 0.06986649832974468,
+        "draw": 0.1613418525650433,
+        "away_win": 0.768791649105212
+      },
+      "expected_goals": {
+        "home": 0.5127869020687958,
+        "away": 2.239073401154777
+      },
+      "scoreline": "0-2",
+      "upset_score": 12.633614672750983
+    },
+    {
+      "id": "2026-06-26-egypt-iran",
+      "date": "2026-06-26",
+      "group": "G",
+      "city": "Seattle",
+      "country": "United States",
+      "home": "Egypt",
+      "away": "Iran",
+      "probabilities": {
+        "home_win": 0.2417442666879351,
+        "draw": 0.2629840498851157,
+        "away_win": 0.4952716834269492
+      },
+      "expected_goals": {
+        "home": 0.946865603564328,
+        "away": 1.478713858093947
+      },
+      "scoreline": "0-1",
+      "upset_score": 33.37886841477256
+    },
+    {
+      "id": "2026-06-26-new-zealand-belgium",
+      "date": "2026-06-26",
+      "group": "G",
+      "city": "Vancouver",
+      "country": "Canada",
+      "home": "New Zealand",
+      "away": "Belgium",
+      "probabilities": {
+        "home_win": 0.07444476090550711,
+        "draw": 0.16227174047515042,
+        "away_win": 0.7632834986193423
+      },
+      "expected_goals": {
+        "home": 0.5472299596107275,
+        "away": 2.256660993516902
+      },
+      "scoreline": "0-2",
+      "upset_score": 13.123987007180975
+    },
+    {
+      "id": "2026-06-26-cape-verde-saudi-arabia",
+      "date": "2026-06-26",
+      "group": "H",
+      "city": "Houston",
+      "country": "United States",
+      "home": "Cape Verde",
+      "away": "Saudi Arabia",
+      "probabilities": {
+        "home_win": 0.34631757258076956,
+        "draw": 0.27467748572551853,
+        "away_win": 0.379004941693712
+      },
+      "expected_goals": {
+        "home": 1.1792453514341896,
+        "away": 1.24698387998032
+      },
+      "scoreline": "1-1",
+      "upset_score": 49.9987795705016
+    },
+    {
+      "id": "2026-06-26-uruguay-spain",
+      "date": "2026-06-26",
+      "group": "H",
+      "city": "Zapopan",
+      "country": "Mexico",
+      "home": "Uruguay",
+      "away": "Spain",
+      "probabilities": {
+        "home_win": 0.06670989014963107,
+        "draw": 0.16080338565323696,
+        "away_win": 0.7724867241971317
+      },
+      "expected_goals": {
+        "home": 0.4885423174495622,
+        "away": 2.225260091067007
+      },
+      "scoreline": "0-2",
+      "upset_score": 12.2991075128264
+    },
+    {
+      "id": "2026-06-26-norway-france",
+      "date": "2026-06-26",
+      "group": "I",
+      "city": "Foxborough",
+      "country": "United States",
+      "home": "Norway",
+      "away": "France",
+      "probabilities": {
+        "home_win": 0.1704940442773589,
+        "draw": 0.22138801524787186,
+        "away_win": 0.6081179404747692
+      },
+      "expected_goals": {
+        "home": 0.8712168184974217,
+        "away": 1.8672630165514326
+      },
+      "scoreline": "0-1",
+      "upset_score": 24.797984961411405
+    },
+    {
+      "id": "2026-06-26-senegal-iraq",
+      "date": "2026-06-26",
+      "group": "I",
+      "city": "Toronto",
+      "country": "Canada",
+      "home": "Senegal",
+      "away": "Iraq",
+      "probabilities": {
+        "home_win": 0.546669446241438,
+        "draw": 0.24999878792205282,
+        "away_win": 0.20333176583650928
+      },
+      "expected_goals": {
+        "home": 1.6025259338113345,
+        "away": 0.8683833146375571
+      },
+      "scoreline": "1-0",
+      "upset_score": 29.083134160922775
+    },
+    {
+      "id": "2026-06-27-algeria-austria",
+      "date": "2026-06-27",
+      "group": "J",
+      "city": "Kansas City",
+      "country": "United States",
+      "home": "Algeria",
+      "away": "Austria",
+      "probabilities": {
+        "home_win": 0.3480215905263474,
+        "draw": 0.27405591110409866,
+        "away_win": 0.37792249836955427
+      },
+      "expected_goals": {
+        "home": 1.1869903112991542,
+        "away": 1.2490609440293157
+      },
+      "scoreline": "1-1",
+      "upset_score": 52.83153300084999
+    },
+    {
+      "id": "2026-06-27-jordan-argentina",
+      "date": "2026-06-27",
+      "group": "J",
+      "city": "Arlington",
+      "country": "United States",
+      "home": "Jordan",
+      "away": "Argentina",
+      "probabilities": {
+        "home_win": 0.031569047374023426,
+        "draw": 0.10827343543253969,
+        "away_win": 0.8601575171934369
+      },
+      "expected_goals": {
+        "home": 0.35,
+        "away": 2.652675736019493
+      },
+      "scoreline": "0-2",
+      "upset_score": 6.946474977541232
+    },
+    {
+      "id": "2026-06-27-colombia-portugal",
+      "date": "2026-06-27",
+      "group": "K",
+      "city": "Miami Gardens",
+      "country": "United States",
+      "home": "Colombia",
+      "away": "Portugal",
+      "probabilities": {
+        "home_win": 0.29054630364907724,
+        "draw": 0.2596855102877536,
+        "away_win": 0.4497681860631692
+      },
+      "expected_goals": {
+        "home": 1.1267744028710749,
+        "away": 1.4681882295984596
+      },
+      "scoreline": "1-1",
+      "upset_score": 41.90009446266354
+    },
+    {
+      "id": "2026-06-27-dr-congo-uzbekistan",
+      "date": "2026-06-27",
+      "group": "K",
+      "city": "Atlanta",
+      "country": "United States",
+      "home": "DR Congo",
+      "away": "Uzbekistan",
+      "probabilities": {
+        "home_win": 0.29619242841583265,
+        "draw": 0.2765070239021977,
+        "away_win": 0.4273005476819698
+      },
+      "expected_goals": {
+        "home": 1.0433183005737034,
+        "away": 1.3124022165611045
+      },
+      "scoreline": "1-1",
+      "upset_score": 41.23031496417167
+    },
+    {
+      "id": "2026-06-27-panama-england",
+      "date": "2026-06-27",
+      "group": "L",
+      "city": "East Rutherford",
+      "country": "United States",
+      "home": "Panama",
+      "away": "England",
+      "probabilities": {
+        "home_win": 0.07146036996029775,
+        "draw": 0.16189709623616086,
+        "away_win": 0.7666425338035414
+      },
+      "expected_goals": {
+        "home": 0.5237387189774559,
+        "away": 2.2422374925324493
+      },
+      "scoreline": "0-2",
+      "upset_score": 12.812435364295407
+    },
+    {
+      "id": "2026-06-27-croatia-ghana",
+      "date": "2026-06-27",
+      "group": "L",
+      "city": "Philadelphia",
+      "country": "United States",
+      "home": "Croatia",
+      "away": "Ghana",
+      "probabilities": {
+        "home_win": 0.7603308903744216,
+        "draw": 0.16579827755786183,
+        "away_win": 0.07387083206771616
+      },
+      "expected_goals": {
+        "home": 2.2070845246091015,
+        "away": 0.5262020423103461
+      },
+      "scoreline": "2-0",
+      "upset_score": 13.19002292129678
+    }
+  ],
+  "bracket": [
+    {
+      "round": "Round of 32",
+      "match_no": 1,
+      "home": "Mexico",
+      "away": "Scotland",
+      "home_advance": 0.7081955119528274,
+      "away_advance": 0.29180448804717307,
+      "winner": "Mexico",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 2,
+      "home": "Canada",
+      "away": "Sweden",
+      "home_advance": 0.6917615255675802,
+      "away_advance": 0.30823847443241964,
+      "winner": "Canada",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 3,
+      "home": "Brazil",
+      "away": "Czech Republic",
+      "home_advance": 0.8742825972680033,
+      "away_advance": 0.12571740273199625,
+      "winner": "Brazil",
+      "scoreline": "2-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 4,
+      "home": "Turkey",
+      "away": "Iran",
+      "home_advance": 0.5889226477639862,
+      "away_advance": 0.411077352236014,
+      "winner": "Turkey",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 5,
+      "home": "Germany",
+      "away": "Bosnia and Herzegovina",
+      "home_advance": 0.9463093891067161,
+      "away_advance": 0.0536906108932841,
+      "winner": "Germany",
+      "scoreline": "2-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 6,
+      "home": "Netherlands",
+      "away": "Ecuador",
+      "home_advance": 0.5837473936438561,
+      "away_advance": 0.41625260635614436,
+      "winner": "Netherlands",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 7,
+      "home": "Belgium",
+      "away": "United States",
+      "home_advance": 0.8066864988323026,
+      "away_advance": 0.19331350116769713,
+      "winner": "Belgium",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 8,
+      "home": "Spain",
+      "away": "Senegal",
+      "home_advance": 0.9323156857885063,
+      "away_advance": 0.06768431421149346,
+      "winner": "Spain",
+      "scoreline": "2-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 9,
+      "home": "France",
+      "away": "Saudi Arabia",
+      "home_advance": 0.9694503745107143,
+      "away_advance": 0.03054962548928583,
+      "winner": "France",
+      "scoreline": "2-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 10,
+      "home": "Argentina",
+      "away": "Panama",
+      "home_advance": 0.9493007008632133,
+      "away_advance": 0.05069929913678684,
+      "winner": "Argentina",
+      "scoreline": "2-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 11,
+      "home": "Portugal",
+      "away": "Austria",
+      "home_advance": 0.7756936134376626,
+      "away_advance": 0.22430638656233737,
+      "winner": "Portugal",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 12,
+      "home": "England",
+      "away": "Colombia",
+      "home_advance": 0.6754541041231917,
+      "away_advance": 0.32454589587680777,
+      "winner": "England",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 13,
+      "home": "South Korea",
+      "away": "Switzerland",
+      "home_advance": 0.36187383421153496,
+      "away_advance": 0.6381261657884656,
+      "winner": "Switzerland",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 14,
+      "home": "Morocco",
+      "away": "Paraguay",
+      "home_advance": 0.6790348099096057,
+      "away_advance": 0.32096519009039487,
+      "winner": "Morocco",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 15,
+      "home": "Ivory Coast",
+      "away": "Japan",
+      "home_advance": 0.24252955374396756,
+      "away_advance": 0.7574704462560323,
+      "winner": "Japan",
+      "scoreline": "0-1"
+    },
+    {
+      "round": "Round of 32",
+      "match_no": 16,
+      "home": "Uruguay",
+      "away": "Egypt",
+      "home_advance": 0.6878173338298322,
+      "away_advance": 0.3121826661701679,
+      "winner": "Uruguay",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 1,
+      "home": "Mexico",
+      "away": "Canada",
+      "home_advance": 0.6628738942432002,
+      "away_advance": 0.3371261057567998,
+      "winner": "Mexico",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 2,
+      "home": "Brazil",
+      "away": "Turkey",
+      "home_advance": 0.6901381655513773,
+      "away_advance": 0.30986183444862264,
+      "winner": "Brazil",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 3,
+      "home": "Germany",
+      "away": "Netherlands",
+      "home_advance": 0.539240671210117,
+      "away_advance": 0.4607593287898831,
+      "winner": "Germany",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 4,
+      "home": "Belgium",
+      "away": "Spain",
+      "home_advance": 0.15102078501285054,
+      "away_advance": 0.848979214987149,
+      "winner": "Spain",
+      "scoreline": "0-2"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 5,
+      "home": "France",
+      "away": "Argentina",
+      "home_advance": 0.40843156680629855,
+      "away_advance": 0.591568433193701,
+      "winner": "Argentina",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 6,
+      "home": "Portugal",
+      "away": "England",
+      "home_advance": 0.41650839193038725,
+      "away_advance": 0.5834916080696126,
+      "winner": "England",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 7,
+      "home": "Switzerland",
+      "away": "Morocco",
+      "home_advance": 0.4104107357650072,
+      "away_advance": 0.5895892642349929,
+      "winner": "Morocco",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Round of 16",
+      "match_no": 8,
+      "home": "Japan",
+      "away": "Uruguay",
+      "home_advance": 0.6205291341716275,
+      "away_advance": 0.3794708658283723,
+      "winner": "Japan",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Quarter-finals",
+      "match_no": 1,
+      "home": "Mexico",
+      "away": "Brazil",
+      "home_advance": 0.3079959631081883,
+      "away_advance": 0.6920040368918117,
+      "winner": "Brazil",
+      "scoreline": "0-1"
+    },
+    {
+      "round": "Quarter-finals",
+      "match_no": 2,
+      "home": "Germany",
+      "away": "Spain",
+      "home_advance": 0.2087603123574236,
+      "away_advance": 0.791239687642576,
+      "winner": "Spain",
+      "scoreline": "0-1"
+    },
+    {
+      "round": "Quarter-finals",
+      "match_no": 3,
+      "home": "Argentina",
+      "away": "England",
+      "home_advance": 0.6279370334412,
+      "away_advance": 0.37206296655880006,
+      "winner": "Argentina",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Quarter-finals",
+      "match_no": 4,
+      "home": "Morocco",
+      "away": "Japan",
+      "home_advance": 0.511114965743237,
+      "away_advance": 0.4888850342567632,
+      "winner": "Morocco",
+      "scoreline": "1-1"
+    },
+    {
+      "round": "Semi-finals",
+      "match_no": 1,
+      "home": "Brazil",
+      "away": "Spain",
+      "home_advance": 0.21114708156097353,
+      "away_advance": 0.7888529184390264,
+      "winner": "Spain",
+      "scoreline": "0-1"
+    },
+    {
+      "round": "Semi-finals",
+      "match_no": 2,
+      "home": "Argentina",
+      "away": "Morocco",
+      "home_advance": 0.8067651406165292,
+      "away_advance": 0.19323485938347043,
+      "winner": "Argentina",
+      "scoreline": "1-0"
+    },
+    {
+      "round": "Final",
+      "match_no": 1,
+      "home": "Spain",
+      "away": "Argentina",
+      "home_advance": 0.5803832136265666,
+      "away_advance": 0.4196167863734334,
+      "winner": "Spain",
+      "scoreline": "1-1"
+    }
+  ],
+  "refreshed_at": "2026-06-11T15:51:13Z"
+}
