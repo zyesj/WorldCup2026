@@ -367,7 +367,7 @@ function renderTicker(data) {
     const body = languageMode === "en" ? item.en : languageMode === "zh" ? item.zh : `${item.zh} / ${item.en}`;
     return `<span class="newsBadge ${item.level}">${tag}</span><span class="newsTime">${item.time}</span><b>${newsLabel}</b>${body}`;
   });
-  const html = [...items, ...items].map((item) => `<span class="tickerItem">${item}</span>`).join("");
+  const html = items.map((item) => `<span class="tickerItem">${item}</span>`).join("");
   document.getElementById("tickerTrack").innerHTML = html;
 }
 

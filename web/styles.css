@@ -197,25 +197,30 @@ h2 {
 }
 
 .ticker {
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(20, 33, 38, 0.92);
-  white-space: nowrap;
 }
 
 .tickerTrack {
-  display: inline-block;
-  padding: 10px 0;
-  animation: scroll 34s linear infinite;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px;
 }
 
 .tickerItem {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   align-items: center;
-  gap: 10px;
-  padding: 0 28px;
+  gap: 6px 8px;
+  min-width: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
   color: #dbe6e2;
+  white-space: normal;
 }
 
 .tickerItem b {
@@ -610,24 +615,12 @@ h2 {
   }
 
   .tickerTrack {
-    display: grid;
-    gap: 8px;
+    grid-template-columns: 1fr;
     padding: 10px;
-    animation: none;
   }
 
   .tickerItem {
-    display: grid;
-    grid-template-columns: auto auto 1fr;
-    gap: 6px 8px;
     padding: 9px 10px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    white-space: normal;
-  }
-
-  .tickerItem:nth-child(n + 5) {
-    display: none;
   }
 
   .pickButtons {
