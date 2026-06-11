@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: worldcup2026
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: PYTHONDONTWRITEBYTECODE=1 python3 backend_server.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: ALLOWED_ORIGIN
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: DB_PATH
+        value: /var/data/worldcup.db
+    disk:
+      name: worldcup-data
+      mountPath: /var/data
+      sizeGB: 1
