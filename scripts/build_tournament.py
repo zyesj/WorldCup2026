@@ -129,9 +129,11 @@ def team_market_adjust(team: str) -> float:
 
 
 def make_match_payload(row: dict, prediction) -> dict:
+    lock_at = f"{row['date']}T00:00:00Z"
     return {
         "id": fixture_id(row),
         "date": row["date"],
+        "lock_at": lock_at,
         "group": group_for(row["home_team"]),
         "city": row["city"],
         "country": row["country"],

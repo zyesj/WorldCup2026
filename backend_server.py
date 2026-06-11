@@ -16,10 +16,18 @@ from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parent
-DB_PATH = ROOT / "data" / "worldcup.db"
+DB_PATH = Path(os.environ.get("DB_PATH", str(ROOT / "data" / "worldcup.db")))
 PREDICTIONS_PATH = ROOT / "outputs" / "tournament_predictions.json"
 WEB_ROOT = ROOT / "web"
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "*")
+ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
+RATE_BUCKETS: dict[tuple[str, str], list[float]] = {}
+RATE_LIMITS = {
+    "GET": (120, 60),
+    "/api/users": (5, 60),
+    "/api/picks": (120, 60),
+    "/api/results": (30, 60),
+}
 UPDATE_STATE = {
     "mode": "starting",
     "interval_seconds": None,
@@ -51,6 +59,9 @@ def init_db() -> None:
         user_columns = {row["name"] for row in conn.execute("PRAGMA table_info(users)").fetchall()}
         if "token" not in user_columns:
             conn.execute("ALTER TABLE users ADD COLUMN token TEXT NOT NULL DEFAULT ''")
+        empty_token_rows = conn.execute("SELECT id FROM users WHERE token = ''").fetchall()
+        for row in empty_token_rows:
+            conn.execute("UPDATE users SET token = ? WHERE id = ?", (secrets.token_urlsafe(32), row["id"]))
         conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS users_token_idx ON users(token)")
         conn.execute(
             """
@@ -96,6 +107,25 @@ def read_json_body(handler: SimpleHTTPRequestHandler) -> dict:
     return json.loads(handler.rfile.read(length).decode("utf-8"))
 
 
+def client_ip(handler: SimpleHTTPRequestHandler) -> str:
+    forwarded = handler.headers.get("X-Forwarded-For", "")
+    if forwarded:
+        return forwarded.split(",", 1)[0].strip()
+    return handler.client_address[0]
+
+
+def check_rate_limit(handler: SimpleHTTPRequestHandler, key: str) -> None:
+    limit, window = RATE_LIMITS.get(key, RATE_LIMITS["GET"])
+    now = time.monotonic()
+    bucket_key = (client_ip(handler), key)
+    bucket = [stamp for stamp in RATE_BUCKETS.get(bucket_key, []) if now - stamp < window]
+    if len(bucket) >= limit:
+        RATE_BUCKETS[bucket_key] = bucket
+        raise ValueError("Rate limit exceeded")
+    bucket.append(now)
+    RATE_BUCKETS[bucket_key] = bucket
+
+
 def load_predictions() -> dict:
     return json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8"))
 
@@ -116,6 +146,27 @@ def clean_nickname(raw: str) -> str:
     if not nickname:
         raise ValueError("Nickname is required")
     return nickname
+
+
+def parse_utc(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00")).replace(tzinfo=None)
+
+
+def match_by_id(match_id: str) -> dict | None:
+    for match in load_predictions().get("matches", []):
+        if match.get("id") == match_id:
+            return match
+    return None
+
+
+def is_pick_locked(match_id: str) -> bool:
+    match = match_by_id(match_id)
+    if not match:
+        raise ValueError("Unknown match")
+    lock_at = match.get("lock_at")
+    if not lock_at:
+        return False
+    return datetime.utcnow() >= parse_utc(lock_at)
 
 
 def current_update_interval() -> tuple[str, int]:
@@ -220,6 +271,12 @@ def leaderboard() -> list[dict]:
     return [dict(row) | {"score": int(row["correct"]) * 3} for row in rows]
 
 
+def require_admin(handler: SimpleHTTPRequestHandler, payload: dict) -> None:
+    token = handler.headers.get("X-Admin-Token") or payload.get("admin_token", "")
+    if not ADMIN_TOKEN or not token or not secrets.compare_digest(ADMIN_TOKEN, str(token)):
+        raise ValueError("Invalid admin token")
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(WEB_ROOT), **kwargs)
@@ -237,6 +294,11 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
+        try:
+            check_rate_limit(self, "GET")
+        except ValueError as exc:
+            json_response(self, {"error": str(exc)}, status=429)
+            return
         if path == "/":
             self.send_response(302)
             self.send_header("Location", "/index.html")
@@ -263,6 +325,7 @@ class Handler(SimpleHTTPRequestHandler):
     def do_POST(self) -> None:
         path = urlparse(self.path).path
         try:
+            check_rate_limit(self, path)
             payload = read_json_body(self)
             if path == "/api/users":
                 json_response(self, {"user": get_or_create_user(payload.get("nickname", ""))})
@@ -271,6 +334,8 @@ class Handler(SimpleHTTPRequestHandler):
                 user_id = int(payload["user_id"])
                 verify_user(user_id, str(payload.get("token", "")))
                 match_id = str(payload["match_id"])
+                if is_pick_locked(match_id):
+                    raise ValueError("Picks are locked for this match")
                 pick = str(payload["pick"])
                 if pick not in {"home", "draw", "away"}:
                     raise ValueError("Invalid pick")
@@ -287,9 +352,35 @@ class Handler(SimpleHTTPRequestHandler):
                     )
                 json_response(self, {"ok": True})
                 return
+            if path == "/api/results":
+                require_admin(self, payload)
+                match_id = str(payload["match_id"])
+                outcome = str(payload["outcome"])
+                if outcome not in {"home", "draw", "away"}:
+                    raise ValueError("Invalid outcome")
+                home_score = payload.get("home_score")
+                away_score = payload.get("away_score")
+                now = datetime.utcnow().isoformat(timespec="seconds") + "Z"
+                with db() as conn:
+                    conn.execute(
+                        """
+                        INSERT INTO results (match_id, outcome, home_score, away_score, finalized_at)
+                        VALUES (?, ?, ?, ?, ?)
+                        ON CONFLICT(match_id)
+                        DO UPDATE SET
+                          outcome = excluded.outcome,
+                          home_score = excluded.home_score,
+                          away_score = excluded.away_score,
+                          finalized_at = excluded.finalized_at
+                        """,
+                        (match_id, outcome, home_score, away_score, now),
+                    )
+                json_response(self, {"ok": True, "leaderboard": leaderboard()})
+                return
             json_response(self, {"error": "Not found"}, status=404)
         except Exception as exc:
-            json_response(self, {"error": str(exc)}, status=400)
+            status = 429 if str(exc) == "Rate limit exceeded" else 400
+            json_response(self, {"error": str(exc)}, status=status)
 
 
 def main() -> None:

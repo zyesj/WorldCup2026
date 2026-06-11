@@ -118,6 +118,11 @@ const I18N = {
   localOnly: { zh: "本地模式", en: "Local mode" },
   signedIn: { zh: "已登录", en: "Signed in" },
   noRank: { zh: "暂无排行榜数据", en: "No leaderboard yet" },
+  locked: { zh: "已锁定", en: "Locked" },
+  unlocked: { zh: "可修改", en: "Open" },
+  synced: { zh: "云端已同步", en: "Synced" },
+  localSaved: { zh: "本地已保存", en: "Saved locally" },
+  syncFailed: { zh: "同步失败", en: "Sync failed" },
 };
 
 function teamName(team) {
@@ -164,6 +169,18 @@ function modelPick(match) {
     ["away", match.probabilities.away_win],
   ];
   return entries.sort((a, b) => b[1] - a[1])[0][0];
+}
+
+function isLocked(match) {
+  if (!match.lock_at) return false;
+  return Date.now() >= Date.parse(match.lock_at);
+}
+
+function setSyncStatus(key) {
+  const node = document.getElementById("syncStatus");
+  if (!node) return;
+  node.textContent = text(key);
+  node.className = `syncStatus ${key}`;
 }
 
 function pickedCount(data) {
@@ -274,11 +291,16 @@ async function loadUpdateStatus() {
 }
 
 async function savePickRemote(matchId, pick) {
-  if (!currentUser) return;
+  if (!currentUser) {
+    setSyncStatus("localSaved");
+    return;
+  }
   try {
     await apiPost("/api/picks", { user_id: currentUser.id, token: currentUser.token, match_id: matchId, pick });
     renderLeaderboard(await loadLeaderboard());
+    setSyncStatus("synced");
   } catch (error) {
+    setSyncStatus("syncFailed");
     console.warn("Could not save pick remotely", error);
   }
 }
@@ -393,22 +415,23 @@ function renderMatches(data) {
       const p = m.probabilities;
       const pick = userPicks[m.id];
       const model = modelPick(m);
+      const locked = isLocked(m);
       return `
-        <article class="matchCard">
+        <article class="matchCard ${locked ? "locked" : ""}">
           <div class="teams"><span>${teamName(m.home)}</span><span>${teamName(m.away)}</span></div>
           <div class="bar">
             <span style="width:${p.home_win * 100}%"></span>
             <span style="width:${p.draw * 100}%"></span>
             <span style="width:${p.away_win * 100}%"></span>
           </div>
-          <div class="meta"><span>${m.date} · ${text("group")} ${m.group}</span><span>${m.scoreline}</span></div>
+          <div class="meta"><span>${m.date} · ${text("group")} ${m.group}</span><span>${locked ? text("locked") : text("unlocked")}</span></div>
           <div class="meta"><span>${m.city}</span><span>${pct(p.home_win)} / ${pct(p.draw)} / ${pct(p.away_win)}</span></div>
           <div class="pickBox">
             <div class="pickTitle">${text("userPick")}：<strong>${pickLabel(m, pick)}</strong></div>
             <div class="pickButtons" data-match-id="${m.id}">
-              <button class="pickButton ${pick === "home" ? "selected" : ""}" data-pick="home">${teamName(m.home)}</button>
-              <button class="pickButton ${pick === "draw" ? "selected" : ""}" data-pick="draw">${languageMode === "en" ? "Draw" : languageMode === "zh" ? "平局" : "平局 Draw"}</button>
-              <button class="pickButton ${pick === "away" ? "selected" : ""}" data-pick="away">${teamName(m.away)}</button>
+              <button class="pickButton ${pick === "home" ? "selected" : ""}" data-pick="home" ${locked ? "disabled" : ""}>${teamName(m.home)}</button>
+              <button class="pickButton ${pick === "draw" ? "selected" : ""}" data-pick="draw" ${locked ? "disabled" : ""}>${languageMode === "en" ? "Draw" : languageMode === "zh" ? "平局" : "平局 Draw"}</button>
+              <button class="pickButton ${pick === "away" ? "selected" : ""}" data-pick="away" ${locked ? "disabled" : ""}>${teamName(m.away)}</button>
             </div>
             <div class="meta pickMeta">
               <span>${text("modelPick")}：${pickLabel(m, model)}</span>
@@ -423,6 +446,11 @@ function renderMatches(data) {
   document.querySelectorAll(".pickButton").forEach((button) => {
     button.addEventListener("click", () => {
       const matchId = button.parentElement.dataset.matchId;
+      const match = currentData.matches.find((item) => item.id === matchId);
+      if (match && isLocked(match)) {
+        setSyncStatus("locked");
+        return;
+      }
       userPicks[matchId] = button.dataset.pick;
       localStorage.setItem("userPicks", JSON.stringify(userPicks));
       savePickRemote(matchId, button.dataset.pick);

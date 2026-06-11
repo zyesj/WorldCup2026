@@ -410,6 +410,15 @@ h2 {
   color: #091114;
 }
 
+.pickButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.matchCard.locked {
+  opacity: 0.78;
+}
+
 .pickMeta {
   margin-top: 7px;
 }
@@ -474,6 +483,25 @@ h2 {
   display: block;
   height: 100%;
   background: var(--green);
+}
+
+.syncStatus {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.syncStatus.synced {
+  color: var(--green);
+}
+
+.syncStatus.syncFailed,
+.syncStatus.locked {
+  color: var(--red);
+}
+
+.syncStatus.localSaved {
+  color: var(--yellow);
 }
 
 .leaderboard {

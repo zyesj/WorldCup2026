@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T17:02:00Z",
+  "generated_at": "2026-06-11T17:52:33Z",
   "model_version": "v0.1-elo-poisson-market-prior",
   "note": "Round-of-32 third-place pairings are approximated for v0.1; probabilities are pre-match model outputs, not live odds.",
   "champion": "Spain",
@@ -539,6 +539,7 @@
     {
       "id": "2026-06-11-mexico-south-africa",
       "date": "2026-06-11",
+      "lock_at": "2026-06-11T00:00:00Z",
       "group": "A",
       "city": "Mexico City",
       "country": "Mexico",
@@ -559,6 +560,7 @@
     {
       "id": "2026-06-11-south-korea-czech-republic",
       "date": "2026-06-11",
+      "lock_at": "2026-06-11T00:00:00Z",
       "group": "A",
       "city": "Zapopan",
       "country": "Mexico",
@@ -579,6 +581,7 @@
     {
       "id": "2026-06-12-canada-bosnia-and-herzegovina",
       "date": "2026-06-12",
+      "lock_at": "2026-06-12T00:00:00Z",
       "group": "B",
       "city": "Toronto",
       "country": "Canada",
@@ -599,6 +602,7 @@
     {
       "id": "2026-06-12-united-states-paraguay",
       "date": "2026-06-12",
+      "lock_at": "2026-06-12T00:00:00Z",
       "group": "D",
       "city": "Inglewood",
       "country": "United States",
@@ -619,6 +623,7 @@
     {
       "id": "2026-06-13-qatar-switzerland",
       "date": "2026-06-13",
+      "lock_at": "2026-06-13T00:00:00Z",
       "group": "B",
       "city": "Santa Clara",
       "country": "United States",
@@ -639,6 +644,7 @@
     {
       "id": "2026-06-13-brazil-morocco",
       "date": "2026-06-13",
+      "lock_at": "2026-06-13T00:00:00Z",
       "group": "C",
       "city": "East Rutherford",
       "country": "United States",
@@ -659,6 +665,7 @@
     {
       "id": "2026-06-13-haiti-scotland",
       "date": "2026-06-13",
+      "lock_at": "2026-06-13T00:00:00Z",
       "group": "C",
       "city": "Foxborough",
       "country": "United States",
@@ -679,6 +686,7 @@
     {
       "id": "2026-06-13-australia-turkey",
       "date": "2026-06-13",
+      "lock_at": "2026-06-13T00:00:00Z",
       "group": "D",
       "city": "Vancouver",
       "country": "Canada",
@@ -699,6 +707,7 @@
     {
       "id": "2026-06-14-germany-curacao",
       "date": "2026-06-14",
+      "lock_at": "2026-06-14T00:00:00Z",
       "group": "E",
       "city": "Houston",
       "country": "United States",
@@ -719,6 +728,7 @@
     {
       "id": "2026-06-14-ivory-coast-ecuador",
       "date": "2026-06-14",
+      "lock_at": "2026-06-14T00:00:00Z",
       "group": "E",
       "city": "Philadelphia",
       "country": "United States",
@@ -739,6 +749,7 @@
     {
       "id": "2026-06-14-netherlands-japan",
       "date": "2026-06-14",
+      "lock_at": "2026-06-14T00:00:00Z",
       "group": "F",
       "city": "Arlington",
       "country": "United States",
@@ -759,6 +770,7 @@
     {
       "id": "2026-06-14-sweden-tunisia",
       "date": "2026-06-14",
+      "lock_at": "2026-06-14T00:00:00Z",
       "group": "F",
       "city": "Guadalupe",
       "country": "Mexico",
@@ -779,6 +791,7 @@
     {
       "id": "2026-06-15-belgium-egypt",
       "date": "2026-06-15",
+      "lock_at": "2026-06-15T00:00:00Z",
       "group": "G",
       "city": "Seattle",
       "country": "United States",
@@ -799,6 +812,7 @@
     {
       "id": "2026-06-15-iran-new-zealand",
       "date": "2026-06-15",
+      "lock_at": "2026-06-15T00:00:00Z",
       "group": "G",
       "city": "Inglewood",
       "country": "United States",
@@ -819,6 +833,7 @@
     {
       "id": "2026-06-15-spain-cape-verde",
       "date": "2026-06-15",
+      "lock_at": "2026-06-15T00:00:00Z",
       "group": "H",
       "city": "Atlanta",
       "country": "United States",
@@ -839,6 +854,7 @@
     {
       "id": "2026-06-15-saudi-arabia-uruguay",
       "date": "2026-06-15",
+      "lock_at": "2026-06-15T00:00:00Z",
       "group": "H",
       "city": "Miami Gardens",
       "country": "United States",
@@ -859,6 +875,7 @@
     {
       "id": "2026-06-16-france-senegal",
       "date": "2026-06-16",
+      "lock_at": "2026-06-16T00:00:00Z",
       "group": "I",
       "city": "East Rutherford",
       "country": "United States",
@@ -879,6 +896,7 @@
     {
       "id": "2026-06-16-iraq-norway",
       "date": "2026-06-16",
+      "lock_at": "2026-06-16T00:00:00Z",
       "group": "I",
       "city": "Foxborough",
       "country": "United States",
@@ -899,6 +917,7 @@
     {
       "id": "2026-06-16-argentina-algeria",
       "date": "2026-06-16",
+      "lock_at": "2026-06-16T00:00:00Z",
       "group": "J",
       "city": "Kansas City",
       "country": "United States",
@@ -919,6 +938,7 @@
     {
       "id": "2026-06-16-austria-jordan",
       "date": "2026-06-16",
+      "lock_at": "2026-06-16T00:00:00Z",
       "group": "J",
       "city": "Santa Clara",
       "country": "United States",
@@ -939,6 +959,7 @@
     {
       "id": "2026-06-17-portugal-dr-congo",
       "date": "2026-06-17",
+      "lock_at": "2026-06-17T00:00:00Z",
       "group": "K",
       "city": "Houston",
       "country": "United States",
@@ -959,6 +980,7 @@
     {
       "id": "2026-06-17-uzbekistan-colombia",
       "date": "2026-06-17",
+      "lock_at": "2026-06-17T00:00:00Z",
       "group": "K",
       "city": "Mexico City",
       "country": "Mexico",
@@ -979,6 +1001,7 @@
     {
       "id": "2026-06-17-england-croatia",
       "date": "2026-06-17",
+      "lock_at": "2026-06-17T00:00:00Z",
       "group": "L",
       "city": "Arlington",
       "country": "United States",
@@ -999,6 +1022,7 @@
     {
       "id": "2026-06-17-ghana-panama",
       "date": "2026-06-17",
+      "lock_at": "2026-06-17T00:00:00Z",
       "group": "L",
       "city": "Toronto",
       "country": "Canada",
@@ -1019,6 +1043,7 @@
     {
       "id": "2026-06-18-czech-republic-south-africa",
       "date": "2026-06-18",
+      "lock_at": "2026-06-18T00:00:00Z",
       "group": "A",
       "city": "Atlanta",
       "country": "United States",
@@ -1039,6 +1064,7 @@
     {
       "id": "2026-06-18-mexico-south-korea",
       "date": "2026-06-18",
+      "lock_at": "2026-06-18T00:00:00Z",
       "group": "A",
       "city": "Zapopan",
       "country": "Mexico",
@@ -1059,6 +1085,7 @@
     {
       "id": "2026-06-18-switzerland-bosnia-and-herzegovina",
       "date": "2026-06-18",
+      "lock_at": "2026-06-18T00:00:00Z",
       "group": "B",
       "city": "Inglewood",
       "country": "United States",
@@ -1079,6 +1106,7 @@
     {
       "id": "2026-06-18-canada-qatar",
       "date": "2026-06-18",
+      "lock_at": "2026-06-18T00:00:00Z",
       "group": "B",
       "city": "Vancouver",
       "country": "Canada",
@@ -1099,6 +1127,7 @@
     {
       "id": "2026-06-19-scotland-morocco",
       "date": "2026-06-19",
+      "lock_at": "2026-06-19T00:00:00Z",
       "group": "C",
       "city": "Foxborough",
       "country": "United States",
@@ -1119,6 +1148,7 @@
     {
       "id": "2026-06-19-brazil-haiti",
       "date": "2026-06-19",
+      "lock_at": "2026-06-19T00:00:00Z",
       "group": "C",
       "city": "Philadelphia",
       "country": "United States",
@@ -1139,6 +1169,7 @@
     {
       "id": "2026-06-19-united-states-australia",
       "date": "2026-06-19",
+      "lock_at": "2026-06-19T00:00:00Z",
       "group": "D",
       "city": "Seattle",
       "country": "United States",
@@ -1159,6 +1190,7 @@
     {
       "id": "2026-06-19-turkey-paraguay",
       "date": "2026-06-19",
+      "lock_at": "2026-06-19T00:00:00Z",
       "group": "D",
       "city": "Santa Clara",
       "country": "United States",
@@ -1179,6 +1211,7 @@
     {
       "id": "2026-06-20-germany-ivory-coast",
       "date": "2026-06-20",
+      "lock_at": "2026-06-20T00:00:00Z",
       "group": "E",
       "city": "Toronto",
       "country": "Canada",
@@ -1199,6 +1232,7 @@
     {
       "id": "2026-06-20-ecuador-curacao",
       "date": "2026-06-20",
+      "lock_at": "2026-06-20T00:00:00Z",
       "group": "E",
       "city": "Kansas City",
       "country": "United States",
@@ -1219,6 +1253,7 @@
     {
       "id": "2026-06-20-netherlands-sweden",
       "date": "2026-06-20",
+      "lock_at": "2026-06-20T00:00:00Z",
       "group": "F",
       "city": "Houston",
       "country": "United States",
@@ -1239,6 +1274,7 @@
     {
       "id": "2026-06-20-tunisia-japan",
       "date": "2026-06-20",
+      "lock_at": "2026-06-20T00:00:00Z",
       "group": "F",
       "city": "Guadalupe",
       "country": "Mexico",
@@ -1259,6 +1295,7 @@
     {
       "id": "2026-06-21-belgium-iran",
       "date": "2026-06-21",
+      "lock_at": "2026-06-21T00:00:00Z",
       "group": "G",
       "city": "Inglewood",
       "country": "United States",
@@ -1279,6 +1316,7 @@
     {
       "id": "2026-06-21-new-zealand-egypt",
       "date": "2026-06-21",
+      "lock_at": "2026-06-21T00:00:00Z",
       "group": "G",
       "city": "Vancouver",
       "country": "Canada",
@@ -1299,6 +1337,7 @@
     {
       "id": "2026-06-21-spain-saudi-arabia",
       "date": "2026-06-21",
+      "lock_at": "2026-06-21T00:00:00Z",
       "group": "H",
       "city": "Atlanta",
       "country": "United States",
@@ -1319,6 +1358,7 @@
     {
       "id": "2026-06-21-uruguay-cape-verde",
       "date": "2026-06-21",
+      "lock_at": "2026-06-21T00:00:00Z",
       "group": "H",
       "city": "Miami Gardens",
       "country": "United States",
@@ -1339,6 +1379,7 @@
     {
       "id": "2026-06-22-france-iraq",
       "date": "2026-06-22",
+      "lock_at": "2026-06-22T00:00:00Z",
       "group": "I",
       "city": "Philadelphia",
       "country": "United States",
@@ -1359,6 +1400,7 @@
     {
       "id": "2026-06-22-norway-senegal",
       "date": "2026-06-22",
+      "lock_at": "2026-06-22T00:00:00Z",
       "group": "I",
       "city": "East Rutherford",
       "country": "United States",
@@ -1379,6 +1421,7 @@
     {
       "id": "2026-06-22-argentina-austria",
       "date": "2026-06-22",
+      "lock_at": "2026-06-22T00:00:00Z",
       "group": "J",
       "city": "Arlington",
       "country": "United States",
@@ -1399,6 +1442,7 @@
     {
       "id": "2026-06-22-jordan-algeria",
       "date": "2026-06-22",
+      "lock_at": "2026-06-22T00:00:00Z",
       "group": "J",
       "city": "Santa Clara",
       "country": "United States",
@@ -1419,6 +1463,7 @@
     {
       "id": "2026-06-23-portugal-uzbekistan",
       "date": "2026-06-23",
+      "lock_at": "2026-06-23T00:00:00Z",
       "group": "K",
       "city": "Houston",
       "country": "United States",
@@ -1439,6 +1484,7 @@
     {
       "id": "2026-06-23-colombia-dr-congo",
       "date": "2026-06-23",
+      "lock_at": "2026-06-23T00:00:00Z",
       "group": "K",
       "city": "Zapopan",
       "country": "Mexico",
@@ -1459,6 +1505,7 @@
     {
       "id": "2026-06-23-england-ghana",
       "date": "2026-06-23",
+      "lock_at": "2026-06-23T00:00:00Z",
       "group": "L",
       "city": "Foxborough",
       "country": "United States",
@@ -1479,6 +1526,7 @@
     {
       "id": "2026-06-23-panama-croatia",
       "date": "2026-06-23",
+      "lock_at": "2026-06-23T00:00:00Z",
       "group": "L",
       "city": "Toronto",
       "country": "Canada",
@@ -1499,6 +1547,7 @@
     {
       "id": "2026-06-24-mexico-czech-republic",
       "date": "2026-06-24",
+      "lock_at": "2026-06-24T00:00:00Z",
       "group": "A",
       "city": "Mexico City",
       "country": "Mexico",
@@ -1519,6 +1568,7 @@
     {
       "id": "2026-06-24-south-africa-south-korea",
       "date": "2026-06-24",
+      "lock_at": "2026-06-24T00:00:00Z",
       "group": "A",
       "city": "Guadalupe",
       "country": "Mexico",
@@ -1539,6 +1589,7 @@
     {
       "id": "2026-06-24-canada-switzerland",
       "date": "2026-06-24",
+      "lock_at": "2026-06-24T00:00:00Z",
       "group": "B",
       "city": "Vancouver",
       "country": "Canada",
@@ -1559,6 +1610,7 @@
     {
       "id": "2026-06-24-bosnia-and-herzegovina-qatar",
       "date": "2026-06-24",
+      "lock_at": "2026-06-24T00:00:00Z",
       "group": "B",
       "city": "Seattle",
       "country": "United States",
@@ -1579,6 +1631,7 @@
     {
       "id": "2026-06-24-scotland-brazil",
       "date": "2026-06-24",
+      "lock_at": "2026-06-24T00:00:00Z",
       "group": "C",
       "city": "Miami Gardens",
       "country": "United States",
@@ -1599,6 +1652,7 @@
     {
       "id": "2026-06-24-morocco-haiti",
       "date": "2026-06-24",
+      "lock_at": "2026-06-24T00:00:00Z",
       "group": "C",
       "city": "Atlanta",
       "country": "United States",
@@ -1619,6 +1673,7 @@
     {
       "id": "2026-06-25-united-states-turkey",
       "date": "2026-06-25",
+      "lock_at": "2026-06-25T00:00:00Z",
       "group": "D",
       "city": "Inglewood",
       "country": "United States",
@@ -1639,6 +1694,7 @@
     {
       "id": "2026-06-25-paraguay-australia",
       "date": "2026-06-25",
+      "lock_at": "2026-06-25T00:00:00Z",
       "group": "D",
       "city": "Santa Clara",
       "country": "United States",
@@ -1659,6 +1715,7 @@
     {
       "id": "2026-06-25-curacao-ivory-coast",
       "date": "2026-06-25",
+      "lock_at": "2026-06-25T00:00:00Z",
       "group": "E",
       "city": "Philadelphia",
       "country": "United States",
@@ -1679,6 +1736,7 @@
     {
       "id": "2026-06-25-ecuador-germany",
       "date": "2026-06-25",
+      "lock_at": "2026-06-25T00:00:00Z",
       "group": "E",
       "city": "East Rutherford",
       "country": "United States",
@@ -1699,6 +1757,7 @@
     {
       "id": "2026-06-25-japan-sweden",
       "date": "2026-06-25",
+      "lock_at": "2026-06-25T00:00:00Z",
       "group": "F",
       "city": "Arlington",
       "country": "United States",
@@ -1719,6 +1778,7 @@
     {
       "id": "2026-06-25-tunisia-netherlands",
       "date": "2026-06-25",
+      "lock_at": "2026-06-25T00:00:00Z",
       "group": "F",
       "city": "Kansas City",
       "country": "United States",
@@ -1739,6 +1799,7 @@
     {
       "id": "2026-06-26-egypt-iran",
       "date": "2026-06-26",
+      "lock_at": "2026-06-26T00:00:00Z",
       "group": "G",
       "city": "Seattle",
       "country": "United States",
@@ -1759,6 +1820,7 @@
     {
       "id": "2026-06-26-new-zealand-belgium",
       "date": "2026-06-26",
+      "lock_at": "2026-06-26T00:00:00Z",
       "group": "G",
       "city": "Vancouver",
       "country": "Canada",
@@ -1779,6 +1841,7 @@
     {
       "id": "2026-06-26-cape-verde-saudi-arabia",
       "date": "2026-06-26",
+      "lock_at": "2026-06-26T00:00:00Z",
       "group": "H",
       "city": "Houston",
       "country": "United States",
@@ -1799,6 +1862,7 @@
     {
       "id": "2026-06-26-uruguay-spain",
       "date": "2026-06-26",
+      "lock_at": "2026-06-26T00:00:00Z",
       "group": "H",
       "city": "Zapopan",
       "country": "Mexico",
@@ -1819,6 +1883,7 @@
     {
       "id": "2026-06-26-norway-france",
       "date": "2026-06-26",
+      "lock_at": "2026-06-26T00:00:00Z",
       "group": "I",
       "city": "Foxborough",
       "country": "United States",
@@ -1839,6 +1904,7 @@
     {
       "id": "2026-06-26-senegal-iraq",
       "date": "2026-06-26",
+      "lock_at": "2026-06-26T00:00:00Z",
       "group": "I",
       "city": "Toronto",
       "country": "Canada",
@@ -1859,6 +1925,7 @@
     {
       "id": "2026-06-27-algeria-austria",
       "date": "2026-06-27",
+      "lock_at": "2026-06-27T00:00:00Z",
       "group": "J",
       "city": "Kansas City",
       "country": "United States",
@@ -1879,6 +1946,7 @@
     {
       "id": "2026-06-27-jordan-argentina",
       "date": "2026-06-27",
+      "lock_at": "2026-06-27T00:00:00Z",
       "group": "J",
       "city": "Arlington",
       "country": "United States",
@@ -1899,6 +1967,7 @@
     {
       "id": "2026-06-27-colombia-portugal",
       "date": "2026-06-27",
+      "lock_at": "2026-06-27T00:00:00Z",
       "group": "K",
       "city": "Miami Gardens",
       "country": "United States",
@@ -1919,6 +1988,7 @@
     {
       "id": "2026-06-27-dr-congo-uzbekistan",
       "date": "2026-06-27",
+      "lock_at": "2026-06-27T00:00:00Z",
       "group": "K",
       "city": "Atlanta",
       "country": "United States",
@@ -1939,6 +2009,7 @@
     {
       "id": "2026-06-27-panama-england",
       "date": "2026-06-27",
+      "lock_at": "2026-06-27T00:00:00Z",
       "group": "L",
       "city": "East Rutherford",
       "country": "United States",
@@ -1959,6 +2030,7 @@
     {
       "id": "2026-06-27-croatia-ghana",
       "date": "2026-06-27",
+      "lock_at": "2026-06-27T00:00:00Z",
       "group": "L",
       "city": "Philadelphia",
       "country": "United States",
@@ -2289,5 +2361,5 @@
       "scoreline": "1-1"
     }
   ],
-  "refreshed_at": "2026-06-11T17:02:00Z"
+  "refreshed_at": "2026-06-11T17:52:33Z"
 }
