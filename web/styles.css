@@ -196,6 +196,29 @@ h2 {
   background: var(--red);
 }
 
+.scoreline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(121, 212, 138, 0.1);
+  border: 1px solid rgba(121, 212, 138, 0.22);
+}
+
+.scoreline span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.scoreline strong {
+  color: var(--green);
+  font-size: 24px;
+  line-height: 1;
+}
+
 .ticker {
   overflow: visible;
   border: 1px solid var(--line);

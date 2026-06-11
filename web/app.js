@@ -110,6 +110,8 @@ const I18N = {
   userPick: { zh: "你的预测", en: "Your Pick" },
   noPick: { zh: "未选择", en: "No Pick" },
   modelPick: { zh: "模型倾向", en: "Model Pick" },
+  predictedScore: { zh: "预测比分", en: "Predicted Score" },
+  expectedGoals: { zh: "期望进球", en: "Expected Goals" },
   picked: { zh: "已选", en: "Picked" },
   matches: { zh: "场", en: "matches" },
   myPicks: { zh: "我的竞猜", en: "My Picks" },
@@ -312,15 +314,21 @@ async function savePickRemote(matchId, pick) {
 
 function matchMini(match) {
   const p = match.probabilities;
+  const xg = match.expected_goals;
   return `
     <div class="miniMatch">
       <div class="teams"><span>${teamName(match.home)}</span><span>${teamName(match.away)}</span></div>
+      <div class="scoreline">
+        <span>${text("predictedScore")}</span>
+        <strong>${match.scoreline}</strong>
+      </div>
       <div class="bar" title="${pct(p.home_win)} / ${pct(p.draw)} / ${pct(p.away_win)}">
         <span style="width:${p.home_win * 100}%"></span>
         <span style="width:${p.draw * 100}%"></span>
         <span style="width:${p.away_win * 100}%"></span>
       </div>
       <div class="meta"><span>${match.city}</span><span>${pct(p.home_win)} · ${pct(p.draw)} · ${pct(p.away_win)}</span></div>
+      <div class="meta"><span>${text("expectedGoals")}</span><span>${one(xg.home)} - ${one(xg.away)}</span></div>
     </div>
   `;
 }
@@ -424,12 +432,17 @@ function renderMatches(data) {
   const html = data.matches
     .map((m) => {
       const p = m.probabilities;
+      const xg = m.expected_goals;
       const pick = userPicks[m.id];
       const model = modelPick(m);
       const locked = isLocked(m);
       return `
         <article class="matchCard ${locked ? "locked" : ""}">
           <div class="teams"><span>${teamName(m.home)}</span><span>${teamName(m.away)}</span></div>
+          <div class="scoreline">
+            <span>${text("predictedScore")}</span>
+            <strong>${m.scoreline}</strong>
+          </div>
           <div class="bar">
             <span style="width:${p.home_win * 100}%"></span>
             <span style="width:${p.draw * 100}%"></span>
@@ -437,6 +450,7 @@ function renderMatches(data) {
           </div>
           <div class="meta"><span>${m.date} · ${text("group")} ${m.group}</span><span>${locked ? text("locked") : text("unlocked")}</span></div>
           <div class="meta"><span>${m.city}</span><span>${pct(p.home_win)} / ${pct(p.draw)} / ${pct(p.away_win)}</span></div>
+          <div class="meta"><span>${text("expectedGoals")}</span><span>${one(xg.home)} - ${one(xg.away)}</span></div>
           <div class="pickBox">
             <div class="pickTitle">${text("userPick")}：<strong>${pickLabel(m, pick)}</strong></div>
             <div class="pickButtons" data-match-id="${m.id}">
