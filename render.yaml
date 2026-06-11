@@ -2,6 +2,7 @@ services:
   - type: web
     name: worldcup2026
     env: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: PYTHONDONTWRITEBYTECODE=1 python3 backend_server.py
     envVars:
