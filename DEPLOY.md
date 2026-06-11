@@ -39,9 +39,9 @@ Set these environment variables in Render/Railway:
 
 - `ADMIN_TOKEN`: long random secret used to finalize match results.
 - `ALLOWED_ORIGIN`: your public site URL, for example `https://your-app.onrender.com`.
-- `DB_PATH`: persistent SQLite path. On Render, attach a Persistent Disk and use a path on that disk, for example `/var/data/worldcup.db`.
+- `DB_PATH`: SQLite path. Free Render deployment can use `data/worldcup.db`; this is not guaranteed to survive restarts.
 
-If no persistent disk is attached, users, picks, and results can be lost after redeploys or instance restarts.
+If no persistent disk is attached, users, picks, and results can be lost after redeploys or instance restarts. This is fine for a free preview; use Render Persistent Disk or Postgres/Supabase for a serious leaderboard.
 
 ## Security behavior
 

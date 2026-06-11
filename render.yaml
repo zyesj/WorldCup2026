@@ -12,8 +12,4 @@ services:
       - key: ADMIN_TOKEN
         generateValue: true
       - key: DB_PATH
-        value: /var/data/worldcup.db
-    disk:
-      name: worldcup-data
-      mountPath: /var/data
-      sizeGB: 1
+        value: data/worldcup.db
