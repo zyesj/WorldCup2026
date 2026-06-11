@@ -672,6 +672,78 @@ h2 {
   color: var(--muted);
 }
 
+.adminBody {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(7, 16, 19, 0.78), rgba(7, 16, 19, 0.96)),
+    url("https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=1800&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.adminShell {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.adminPanel {
+  padding: 18px;
+}
+
+.adminForm {
+  display: grid;
+  gap: 14px;
+}
+
+.adminForm label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.adminGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.adminSelect {
+  min-height: 42px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text);
+  font: inherit;
+  padding: 0 12px;
+}
+
+.adminSave {
+  min-height: 46px;
+}
+
+.adminStatus {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.adminStatus.success {
+  color: var(--green);
+}
+
+.adminStatus.error {
+  color: var(--red);
+}
+
 @media (max-width: 980px) {
   .topbar,
   .layout {
@@ -731,6 +803,14 @@ h2 {
   }
 
   .loginForm {
+    grid-template-columns: 1fr;
+  }
+
+  .adminShell {
+    padding: 14px;
+  }
+
+  .adminGrid {
     grid-template-columns: 1fr;
   }
 }

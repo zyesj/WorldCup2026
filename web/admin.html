@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>World Cup Admin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="adminBody">
+    <main class="adminShell">
+      <section class="panel adminPanel">
+        <div class="panelHead">
+          <h1>实时赛况管理</h1>
+          <span>Live Admin</span>
+        </div>
+
+        <form id="adminForm" class="adminForm">
+          <label>
+            管理员密码 / Admin Token
+            <input id="adminToken" class="nicknameInput" type="password" autocomplete="current-password" required />
+          </label>
+
+          <label>
+            比赛 / Match
+            <select id="matchSelect" class="adminSelect" required></select>
+          </label>
+
+          <div class="adminGrid">
+            <label>
+              状态 / Status
+              <select id="statusSelect" class="adminSelect">
+                <option value="TIMED">未开始 / TIMED</option>
+                <option value="IN_PLAY">比赛中 / IN_PLAY</option>
+                <option value="PAUSED">中场 / PAUSED</option>
+                <option value="EXTRA_TIME">加时 / EXTRA_TIME</option>
+                <option value="PENALTY_SHOOTOUT">点球 / PENALTY_SHOOTOUT</option>
+                <option value="FINISHED">完场 / FINISHED</option>
+                <option value="SUSPENDED">暂停 / SUSPENDED</option>
+                <option value="POSTPONED">延期 / POSTPONED</option>
+                <option value="CANCELLED">取消 / CANCELLED</option>
+              </select>
+            </label>
+
+            <label>
+              分钟 / Minute
+              <input id="minuteInput" class="nicknameInput" type="number" min="0" max="130" placeholder="63" />
+            </label>
+          </div>
+
+          <div class="adminGrid">
+            <label>
+              主队比分 / Home
+              <input id="homeScoreInput" class="nicknameInput" type="number" min="0" max="30" value="0" required />
+            </label>
+            <label>
+              客队比分 / Away
+              <input id="awayScoreInput" class="nicknameInput" type="number" min="0" max="30" value="0" required />
+            </label>
+          </div>
+
+          <label>
+            备注 / Note
+            <input id="noteInput" class="nicknameInput" maxlength="160" placeholder="Second half / Full time" />
+          </label>
+
+          <button class="saveButton adminSave" type="submit">保存实时赛况 / Save Live Update</button>
+        </form>
+
+        <div id="adminStatus" class="adminStatus">Loading matches...</div>
+      </section>
+
+      <section class="panel adminPanel">
+        <div class="panelHead">
+          <h2>当前实时数据</h2>
+          <span id="liveAdminUpdated">-</span>
+        </div>
+        <div id="adminLiveList" class="liveMatches"></div>
+      </section>
+    </main>
+
+    <script src="./admin.js"></script>
+  </body>
+</html>

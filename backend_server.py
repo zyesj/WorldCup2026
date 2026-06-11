@@ -589,7 +589,7 @@ class Handler(SimpleHTTPRequestHandler):
             self.path = path.removeprefix("/web") or "/index.html"
             super().do_GET()
             return
-        if path in {"/index.html", "/styles.css", "/app.js", "/data.js"}:
+        if path in {"/index.html", "/admin.html", "/styles.css", "/app.js", "/admin.js", "/data.js"}:
             self.path = path
             super().do_GET()
             return
