@@ -33,6 +33,7 @@ RATE_LIMITS = {
     "GET": (120, 60),
     "/api/users": (5, 60),
     "/api/picks": (120, 60),
+    "/api/live": (60, 60),
     "/api/results": (30, 60),
 }
 UPDATE_STATE = {
@@ -101,6 +102,20 @@ def init_db() -> None:
             )
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS live_overrides (
+                match_id TEXT PRIMARY KEY,
+                status TEXT NOT NULL,
+                minute INTEGER,
+                injury_time INTEGER,
+                home_score INTEGER,
+                away_score INTEGER,
+                note TEXT NOT NULL DEFAULT '',
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
 
 
 def json_response(handler: SimpleHTTPRequestHandler, payload: object, status: int = 200) -> None:
@@ -110,7 +125,7 @@ def json_response(handler: SimpleHTTPRequestHandler, payload: object, status: in
     handler.send_header("Content-Length", str(len(body)))
     handler.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
     handler.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-    handler.send_header("Access-Control-Allow-Headers", "Content-Type")
+    handler.send_header("Access-Control-Allow-Headers", "Content-Type, X-Admin-Token")
     handler.end_headers()
     handler.wfile.write(body)
 
@@ -164,6 +179,10 @@ def predicted_match_index() -> dict[str, str]:
     return index
 
 
+def predictions_by_id() -> dict[str, dict]:
+    return {match["id"]: match for match in load_predictions().get("matches", [])}
+
+
 def fetch_json(url: str, headers: dict[str, str], timeout: int = 12) -> dict:
     request = Request(url, headers=headers)
     with urlopen(request, timeout=timeout) as response:
@@ -205,6 +224,56 @@ def map_football_data_match(match: dict, match_ids: dict[str, str]) -> dict:
     }
 
 
+def manual_live_matches() -> list[dict]:
+    predictions = predictions_by_id()
+    with db() as conn:
+        rows = conn.execute(
+            """
+            SELECT match_id, status, minute, injury_time, home_score, away_score, note, updated_at
+            FROM live_overrides
+            ORDER BY updated_at DESC
+            """
+        ).fetchall()
+    matches = []
+    for row in rows:
+        predicted = predictions.get(row["match_id"])
+        if not predicted:
+            continue
+        matches.append(
+            {
+                "id": row["match_id"],
+                "provider_id": f"manual:{row['match_id']}",
+                "date": predicted["date"],
+                "utc_date": predicted.get("lock_at"),
+                "home": predicted["home"],
+                "away": predicted["away"],
+                "status": row["status"],
+                "minute": row["minute"],
+                "injury_time": row["injury_time"],
+                "venue": predicted.get("city"),
+                "home_score": row["home_score"],
+                "away_score": row["away_score"],
+                "last_updated": row["updated_at"],
+                "note": row["note"],
+                "source": "manual",
+            }
+        )
+    return matches
+
+
+def merge_live_matches(provider_matches: list[dict], manual_matches: list[dict]) -> list[dict]:
+    merged: dict[str, dict] = {}
+    anonymous = []
+    for match in provider_matches:
+        if match.get("id"):
+            merged[match["id"]] = match
+        else:
+            anonymous.append(match)
+    for match in manual_matches:
+        merged[match["id"]] = match
+    return list(merged.values()) + anonymous
+
+
 def football_data_url() -> str:
     today = date.today().isoformat()
     query = urlencode(
@@ -224,20 +293,23 @@ def load_live_matches(force: bool = False) -> dict:
 
     LIVE_STATE["provider"] = LIVE_DATA_PROVIDER or "none"
     LIVE_STATE["last_checked_at"] = utc_now_iso()
+    manual_matches = manual_live_matches()
 
     if LIVE_DATA_PROVIDER not in {"football-data", "footballdata"}:
         payload = {
             **LIVE_STATE,
-            "connected": False,
+            "connected": bool(manual_matches),
             "last_error": "LIVE_DATA_PROVIDER is not configured",
-            "matches": [],
+            "matches": manual_matches,
+            "source": "manual" if manual_matches else None,
         }
     elif not FOOTBALL_DATA_TOKEN:
         payload = {
             **LIVE_STATE,
-            "connected": False,
+            "connected": bool(manual_matches),
             "last_error": "FOOTBALL_DATA_TOKEN is not configured",
-            "matches": [],
+            "matches": manual_matches,
+            "source": "manual" if manual_matches else None,
         }
     else:
         try:
@@ -250,26 +322,81 @@ def load_live_matches(force: bool = False) -> dict:
             raw = fetch_json(football_data_url(), headers)
             match_ids = predicted_match_index()
             live_matches = [map_football_data_match(match, match_ids) for match in raw.get("matches", [])]
+            merged_matches = merge_live_matches(live_matches, manual_matches)
             payload = {
                 "provider": LIVE_DATA_PROVIDER,
                 "connected": True,
                 "last_checked_at": LIVE_STATE["last_checked_at"],
                 "last_error": None,
-                "matches": live_matches,
-                "source": "football-data.org",
+                "matches": merged_matches,
+                "source": "football-data.org" + (" + manual" if manual_matches else ""),
             }
         except Exception as exc:
             payload = {
                 **LIVE_STATE,
-                "connected": False,
+                "connected": bool(manual_matches),
                 "last_error": str(exc),
-                "matches": [],
+                "matches": manual_matches,
+                "source": "manual" if manual_matches else None,
             }
 
     LIVE_STATE.update(payload)
     LIVE_CACHE["payload"] = payload
     LIVE_CACHE["expires_at"] = now + LIVE_CACHE_SECONDS
     return payload
+
+
+def clear_live_cache() -> None:
+    LIVE_CACHE["payload"] = None
+    LIVE_CACHE["expires_at"] = 0.0
+
+
+def save_live_override(payload: dict) -> dict:
+    match_id = str(payload["match_id"])
+    predicted = match_by_id(match_id)
+    if not predicted:
+        raise ValueError("Unknown match")
+    status = str(payload.get("status", "IN_PLAY")).upper()
+    allowed = {
+        "SCHEDULED",
+        "TIMED",
+        "IN_PLAY",
+        "PAUSED",
+        "EXTRA_TIME",
+        "PENALTY_SHOOTOUT",
+        "FINISHED",
+        "SUSPENDED",
+        "POSTPONED",
+        "CANCELLED",
+        "AWARDED",
+    }
+    if status not in allowed:
+        raise ValueError("Invalid live status")
+    minute = payload.get("minute")
+    injury_time = payload.get("injury_time")
+    home_score = payload.get("home_score")
+    away_score = payload.get("away_score")
+    note = str(payload.get("note", ""))[:160]
+    updated_at = utc_now_iso()
+    with db() as conn:
+        conn.execute(
+            """
+            INSERT INTO live_overrides (match_id, status, minute, injury_time, home_score, away_score, note, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(match_id)
+            DO UPDATE SET
+              status = excluded.status,
+              minute = excluded.minute,
+              injury_time = excluded.injury_time,
+              home_score = excluded.home_score,
+              away_score = excluded.away_score,
+              note = excluded.note,
+              updated_at = excluded.updated_at
+            """,
+            (match_id, status, minute, injury_time, home_score, away_score, note, updated_at),
+        )
+    clear_live_cache()
+    return load_live_matches(force=True)
 
 
 def public_user(row: sqlite3.Row | dict) -> dict:
@@ -431,7 +558,7 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_response(204)
         self.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, X-Admin-Token")
         self.end_headers()
 
     def do_GET(self) -> None:
@@ -497,6 +624,10 @@ class Handler(SimpleHTTPRequestHandler):
                         (user_id, match_id, pick, now),
                     )
                 json_response(self, {"ok": True})
+                return
+            if path == "/api/live":
+                require_admin(self, payload)
+                json_response(self, {"ok": True, "live": save_live_override(payload)})
                 return
             if path == "/api/results":
                 require_admin(self, payload)

@@ -126,6 +126,7 @@ const I18N = {
   nextRefresh: { zh: "下次刷新", en: "Next Refresh" },
   liveMatchData: { zh: "实时赛况", en: "Live Match Data" },
   liveConnected: { zh: "实时比分已连接", en: "Live scores connected" },
+  manualLiveConnected: { zh: "手动赛况已连接", en: "Manual live updates connected" },
   liveNotConnected: { zh: "实时比分未连接", en: "Live scores not connected" },
   liveNoMatches: { zh: "今天暂无实时比赛数据", en: "No live match data for today" },
   liveNeedsToken: { zh: "需要在 Render 设置 FOOTBALL_DATA_TOKEN", en: "Set FOOTBALL_DATA_TOKEN on Render" },
@@ -382,7 +383,12 @@ function renderUpdateStatus(status) {
   const nextRefresh = document.getElementById("nextRefresh");
   if (matchStatus) matchStatus.textContent = status.mode || "-";
   if (dataSource) {
-    const liveText = status.live?.connected ? text("liveConnected") : text("liveNotConnected");
+    const source = status.live?.source || "";
+    const liveText = status.live?.connected
+      ? source.includes("manual") && !source.includes("football-data.org")
+        ? text("manualLiveConnected")
+        : text("liveConnected")
+      : text("liveNotConnected");
     dataSource.textContent = `${text("modelRefreshOnly")} · ${liveText}`;
   }
   if (nextRefresh) nextRefresh.textContent = status.interval_seconds ? `${mins} min` : "-";

@@ -22,6 +22,7 @@ The server reads `PORT` from the environment, so it works on Render/Railway-styl
 - `GET /api/update-status`: updater status plus live-data connection status
 - `POST /api/users`: create or reuse nickname
 - `POST /api/picks`: save user pick
+- `POST /api/live`: admin-only manual live score/status override
 - `POST /api/results`: admin-only result finalization
 
 ## Update cadence
@@ -60,3 +61,21 @@ If no persistent disk is attached, users, picks, and results can be lost after r
 The live-score adapter currently supports football-data.org v4. It calls `/v4/matches` with the `WC` competition code, today's date range, and the `X-Auth-Token` header. It also requests unfolded goals and bookings when the provider plan allows them.
 
 Without `FOOTBALL_DATA_TOKEN`, the site still runs and shows model updates, but the live-match panel will clearly say that live scores are not connected.
+
+You can also push manual live updates with the admin token. Manual entries override provider data for the same match and are useful if the provider key is not ready or a feed is delayed:
+
+```bash
+curl -X POST "https://your-app.onrender.com/api/live" \
+  -H "Content-Type: application/json" \
+  -H "X-Admin-Token: $ADMIN_TOKEN" \
+  -d '{
+    "match_id": "2026-06-11-mexico-south-africa",
+    "status": "IN_PLAY",
+    "minute": 63,
+    "home_score": 1,
+    "away_score": 0,
+    "note": "Second half"
+  }'
+```
+
+Use `status: "FINISHED"` and the final score when the match ends. Use `POST /api/results` as well if you want the leaderboard to score user picks.
